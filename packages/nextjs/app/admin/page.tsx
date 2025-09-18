@@ -138,23 +138,23 @@ export default function AdminPage() {
 
     setIsNftActionLoading(true);
     try {
-      let functionName: string;
-      switch (action) {
-        case "mint":
-          functionName = "adminMint";
-          break;
-        case "renew":
-          functionName = "adminRenew";
-          break;
-        case "revoke":
-          functionName = "adminRevoke";
-          break;
+      // Call the appropriate function directly based on action
+      if (action === "mint") {
+        await writeComplianceNFT({
+          functionName: "adminMint",
+          args: [nftTargetAddress as `0x${string}`],
+        });
+      } else if (action === "renew") {
+        await writeComplianceNFT({
+          functionName: "adminRenew",
+          args: [nftTargetAddress as `0x${string}`],
+        });
+      } else if (action === "revoke") {
+        await writeComplianceNFT({
+          functionName: "adminRevoke",
+          args: [nftTargetAddress as `0x${string}`],
+        });
       }
-
-      await writeComplianceNFT({
-        functionName,
-        args: [nftTargetAddress as `0x${string}`],
-      });
 
       alert(`NFT ${action} successful!`);
       setNftTargetAddress("");

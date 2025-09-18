@@ -31,7 +31,6 @@ export default function FundingPage() {
   const { address, isConnected } = useAccount();
   const [activeTab, setActiveTab] = useState<"in" | "out">("in");
   const [cashRequests, setCashRequests] = useState<CashRequest[]>([]);
-  const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   
   // Cash In form
