@@ -1,0 +1,88 @@
+actor,category,field_key,label,type,required,description,example,options,upload
+INSTITUTION,Company,legal_name,Legal Entity Name,string,True,Registered legal name,Echosystem Technologies SAS,,False
+INSTITUTION,Company,trade_name,Trade Name / DBA,string,False,Commercial name,Echotechnology,,False
+INSTITUTION,Company,legal_form,Legal Form,enum,True,Entity type,SAS,SAS|LLC|C-Corp|S-Corp|GmbH|Ltd|PLC|Sole Proprietorship|Partnership,False
+INSTITUTION,Company,registration_number,Registration / Company Number,string,True,Company registry number,901797152-1,,False
+INSTITUTION,Company,tax_id,Tax ID / VAT / NIT / EIN,string,True,Primary tax identifier,NIT 901797152-1,,False
+INSTITUTION,Company,incorporation_date,Date of Incorporation,date,True,YYYY-MM-DD,2021-04-15,,False
+INSTITUTION,Company,website,Website,url,False,Official website (https),https://echotechnology.xyz,,False
+INSTITUTION,Company,industry_code,Primary Industry / ISIC Code,string,False,Industrial Classification of All Economic Activities (ISIC),541211,,False
+INSTITUTION,Company,employees_count,Number of Employees,integer,False,Headcount,12,,False
+INSTITUTION,Company,business_description,Business Description,string,True,"Core business, max 500 chars",Blockchain treasury & OTC services,,False
+INSTITUTION,Contact,primary_email,Primary Contact Email,email,True,Main onboarding contact,ops@convexo.xyz,,False
+INSTITUTION,Contact,primary_phone,Primary Contact Phone,phone,True,E.164 format,+573152812505,,False
+INSTITUTION,Contact,support_email,Support / Finance Email,email,False,For AP/AR notices,finance@convexo.xyz,,False
+INSTITUTION,Contact,country,Country,enum,True,ISO 3166-1 alpha-2,CO,US|CO|MX|BR|CL|GB|SG|HK|DE|FR|ES,False
+INSTITUTION,Contact,state_province,State / Province,string,False,Optional region/state,Valle del Cauca,,False
+INSTITUTION,Contact,city,City,string,True,City of registration,Cali,,False
+INSTITUTION,Contact,address_line1,Address Line 1,string,True,Street + number,"Zona América Tower 1, Oficina 401",,False
+INSTITUTION,Contact,address_line2,Address Line 2,string,False,Suite/floor/optional,Parque Industrial,,False
+INSTITUTION,Contact,postal_code,Postal Code / ZIP,string,False,ZIP or postal code,760032,,False
+INSTITUTION,Contact,proof_of_address,Proof of Address,file,True,Utility bill or bank statement ≤3 months,,,True
+INSTITUTION,Representative,rep_full_name,Full Name,string,True,Legal representative full name,William Martinez,,False
+INSTITUTION,Representative,rep_role,Role / Title,string,True,"Position (CEO, CFO, etc.)",CEO,,False
+INSTITUTION,Representative,rep_id_type,ID Type,enum,True,Govt ID type,CC,CC|DNI|Passport|SSN|Other,False
+INSTITUTION,Representative,rep_id_number,ID Number,string,True,Govt-issued ID,1234567890,,False
+INSTITUTION,Representative,rep_dob,Date of Birth,date,True,YYYY-MM-DD,1990-08-13,,False
+INSTITUTION,Representative,rep_nationality,Nationality,enum,True,ISO 3166-1 alpha-2,CO,US|CO|MX|BR|CL|GB|SG|HK|DE|FR|ES,False
+INSTITUTION,Representative,rep_email,Email,email,True,Direct email,wmb81321@gmail.com,,False
+INSTITUTION,Representative,rep_phone,Phone,phone,True,E.164,+1301501248,,False
+INSTITUTION,Representative,rep_is_pep,PEP Status,boolean,True,Politically Exposed Person,false,,False
+INSTITUTION,Representative,rep_authority_document,Proof of Authority (PoA),file,False,Board resolution or PoA,,,True
+INSTITUTION,Representative,rep_id_document,Government ID,file,True,PDF/JPG/PNG of ID,,,True
+INSTITUTION,Representative,rep_proof_of_address,Proof of Address,file,True,Utility bill/bank statement ≤3 months,,,True
+INSTITUTION,Ownership,shareholders,Shareholders (>10%),array,True,"List of shareholders {name,type,percent}","[{name: 'Alice', type: 'Individual', percent: 20}]",,False
+INSTITUTION,Ownership,ubos,Ultimate Beneficial Owners,array,True,"List of UBOs {name,percent,country}","[{name: 'Bob', percent: 60, country: 'CO'}]",,False
+INSTITUTION,Ownership,cap_table_document,Cap Table / Share Registry,file,False,Latest shareholder registry,,,True
+INSTITUTION,Financial:Income,currency,Reporting Currency,enum,True,ISO 4217,USD,USD|EUR|COP|MXN|BRL|ARS,False
+INSTITUTION,Financial:Income,period_start,Period Start,date,True,YYYY-MM-DD,2024-01-01,,False
+INSTITUTION,Financial:Income,period_end,Period End,date,True,YYYY-MM-DD,2024-12-31,,False
+INSTITUTION,Financial:Income,revenue,Revenue / Sales,number,True,Total revenue,1250000.00,,False
+INSTITUTION,Financial:Income,cogs,COGS,number,False,Direct costs,420000.00,,False
+INSTITUTION,Financial:Income,operating_expenses,Operating Expenses,number,False,Opex,350000.00,,False
+INSTITUTION,Financial:Income,depreciation_amortization,Depreciation & Amortization,number,False,Non-cash,15000.00,,False
+INSTITUTION,Financial:Income,interest_expense,Interest Expense,number,False,Debt servicing,12000.00,,False
+INSTITUTION,Financial:Income,tax_expense,Income Tax Expense,number,False,Tax cost,18000.00,,False
+INSTITUTION,Financial:Income,net_income,Net Income,number,True,Profit/loss,220000.00,,False
+INSTITUTION,Financial:Balance,as_of_date,Balance Sheet Date,date,True,Statement date,2024-12-31,,False
+INSTITUTION,Financial:Balance,cash_and_equivalents,Cash & Equivalents,number,True,"Cash, stablecoins",250000.00,,False
+INSTITUTION,Financial:Balance,accounts_receivable,Accounts Receivable,number,True,Outstanding invoices,180000.00,,False
+INSTITUTION,Financial:Balance,inventory,Inventory,number,False,Goods for sale,90000.00,,False
+INSTITUTION,Financial:Balance,other_current_assets,Other Current Assets,number,False,Prepaids,15000.00,,False
+INSTITUTION,Financial:Balance,ppe_net,PPE Net,number,False,"Property, Plant & Equipment",60000.00,,False
+INSTITUTION,Financial:Balance,intangibles_net,Intangibles Net,number,False,"Goodwill, IP",10000.00,,False
+INSTITUTION,Financial:Balance,total_assets,Total Assets,number,True,Assets = current + non-current,605000.00,,False
+INSTITUTION,Financial:Balance,accounts_payable,Accounts Payable,number,True,Supplier payables,90000.00,,False
+INSTITUTION,Financial:Balance,short_term_debt,Short-Term Debt,number,False,Debt <12 months,20000.00,,False
+INSTITUTION,Financial:Balance,other_current_liabilities,Other Current Liabilities,number,False,Taxes payable,15000.00,,False
+INSTITUTION,Financial:Balance,long_term_debt,Long-Term Debt,number,False,Debt >12 months,110000.00,,False
+INSTITUTION,Financial:Balance,total_liabilities,Total Liabilities,number,True,Current + long-term,235000.00,,False
+INSTITUTION,Financial:Balance,shareholders_equity,Shareholders' Equity,number,True,Equity,370000.00,,False
+INSTITUTION,Financial:Documents,fs_income_statement_pdf,Income Statement (PDF),file,True,Official statement,,,True
+INSTITUTION,Financial:Documents,fs_balance_sheet_pdf,Balance Sheet (PDF),file,True,Official statement,,,True
+INSTITUTION,Financial:Documents,bank_statements,Bank Statements (last 3–6 months),file,True,Provide PDFs or CSVs,,,True
+INSTITUTION,Financial:Documents,tax_return_last_fy,Tax Filing (last FY),file,True,Filed tax return,,,True
+INSTITUTION,Banking,bank_name,Bank Name,string,True,Primary bank,Bancolombia S.A.,,False
+INSTITUTION,Banking,bank_country,Bank Country,enum,True,ISO 3166-1,CO,US|CO|MX|BR|CL|GB|SG|HK|DE|FR|ES,False
+INSTITUTION,Banking,account_holder_name,Account Holder Name,string,True,As per account,Echosystem Technologies SAS,,False
+INSTITUTION,Banking,account_number,Account Number / IBAN,string,True,IBAN/local format,CO12345678901234567890,,False
+INSTITUTION,Banking,routing_number,Routing Number,string,False,ABA/CLABE/local,111000025,,False
+INSTITUTION,Banking,swift_bic,SWIFT/BIC,string,False,8–11 characters,COLOCOBMXXX,,False
+INSTITUTION,Banking,account_currency,Account Currency,enum,True,ISO 4217,USD,USD|EUR|COP|MXN|BRL|ARS,False
+INSTITUTION,Banking,bank_letter,Bank Letter / Void Cheque,file,False,Proof of ownership,,,True
+INSTITUTION,Crypto,evm_address,EVM Wallet Address,address_eth,True,Wallet for USDC,0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48,,False
+INSTITUTION,Crypto,wallet_type,Wallet Type,enum,True,Embedded or External,embedded,embedded|external,False
+INSTITUTION,Crypto,preferred_chains,Preferred Chains,array,True,Chains for settlement,"[""Base"",""Optimism""]",Ethereum|Base|Optimism|Arbitrum|Polygon|Unichain,False
+INSTITUTION,Crypto,usdc_network,USDC Network Preference,enum,False,Primary USDC chain,Base,Ethereum|Base|Optimism|Arbitrum|Polygon,False
+INSTITUTION,Documents,kyb_incorp_cert,Certificate of Incorporation,file,True,Official certificate of incorporation,,,True
+INSTITUTION,Documents,kyb_bylaws,Articles of Association / Bylaws,file,True,Constitutional documents of entity,,,True
+INSTITUTION,Documents,kyb_shareholder_register,Shareholder Register / Cap Table,file,True,Current shareholder registry,,,True
+INSTITUTION,Documents,kyb_board_resolution,Board Resolution / PoA,file,True,Authorizes representative to act on behalf of LP,,,True
+INSTITUTION,Documents,kyb_tax_certificate,Tax Identification Certificate,file,False,Official tax ID certificate,,,True
+INSTITUTION,Documents,kyb_aml_policy,AML Policy Document,file,False,Required if LP is regulated entity,,,True
+INSTITUTION,Documents,kyb_tax_form,Tax Residency Form,file,False,W-8BEN, W-9, CRS self-certification,,,True
+INSTITUTION,Documents,so_funds_evidence,Source of Funds Evidence,file,False,"Bank letter, statements, auditor letter",,,True
+INSTITUTION,Consents,consent_data_processing,Consent to Data Processing,boolean,True,Agree to policy,true,,False
+INSTITUTION,Consents,consent_aml_screening,Consent to AML Screening,boolean,True,Authorize AML checks,true,,False
+INSTITUTION,Consents,agree_terms,Agree to Terms of Service,boolean,True,Accept ToS,true,,False
+INSTITUTION,Consents,electronic_signature,Electronic Signature,string,True,Typed full name,WILLIAM MARTINEZ,,False

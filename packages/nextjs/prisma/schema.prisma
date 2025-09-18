@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  address      String   @unique
+  username     String?
+  email        String?
+  ens          String?
+  createdAt    DateTime @default(now())
+  
+  // Relations
+  bankAccounts     BankAccount[]
+  verifications    VerificationRequest[]
+  cashRequests     CashRequest[]
+}
+
+model VerificationRequest {
+  id        String           @id @default(cuid())
+  address   String           // FK by value
+  kind      VerificationKind // PERSON | INSTITUTION
+  fields    String           // JSON string of submitted form fields
+  status    RequestStatus    // PENDING | APPROVED | REJECTED | CANCELED
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  
+  // Virtual relation
+  user      User?            @relation(fields: [address], references: [address])
+}
+
+model CashRequest {
+  id        String        @id @default(cuid())
+  address   String
+  direction CashDirection // IN | OUT
+  token     String        // ECOP by default
+  amountWei String        // store as string to avoid float issues
+  bankRef   String?       // bank account id or alias
+  status    RequestStatus
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  
+  // Virtual relation
+  user      User?         @relation(fields: [address], references: [address])
+}
+
+model BankAccount {
+  id              String  @id @default(cuid())
+  address         String
+  alias           String?
+  bankName        String?
+  accountNoMasked String?
+  currency        String?
+  
+  // Virtual relation
+  user            User?   @relation(fields: [address], references: [address])
+}
+
+enum VerificationKind {
+  PERSON
+  INSTITUTION
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELED
+}
+
+enum CashDirection {
+  IN
+  OUT
+}

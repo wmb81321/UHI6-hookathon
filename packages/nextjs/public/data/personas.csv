@@ -1,0 +1,50 @@
+actor,category,field_key,label,type,required,description,example,options,upload
+LIQUIDITY_PROVIDER_INDIVIDUAL,Personal,full_name,Full Name,string,True,Full legal name,John Doe,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Personal,dob,Date of Birth,date,True,YYYY-MM-DD,1990-08-13,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Personal,nationality,Nationality,enum,True,ISO 3166-1 alpha-2,CO,US|CO|MX|BR|CL|GB|SG|HK|DE|FR|ES,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Contact,primary_email,Primary Contact Email,email,True,Direct email,john@example.com,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Contact,primary_phone,Primary Contact Phone,phone,True,E.164 format,+1301501248,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Contact,address_line1,Address Line 1,string,True,Street + number,123 Main St,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Contact,proof_of_address,Proof of Address,file,True,Utility bill ≤3 months,,,True
+LIQUIDITY_PROVIDER_INDIVIDUAL,Documents,kyc_id,Government ID,file,True,"Passport, DNI, CC",,,True
+LIQUIDITY_PROVIDER_INDIVIDUAL,Documents,kyc_tax_form,Tax Residency Form,file,False,"W-8BEN, W-9, CRS self-certification",,,True
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Income,currency,Reporting Currency,enum,True,ISO 4217,USD,USD|EUR|COP|MXN|BRL|ARS,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Income,period_start,Period Start,date,True,YYYY-MM-DD,2024-01-01,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Income,period_end,Period End,date,True,YYYY-MM-DD,2024-12-31,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Income,revenue,Revenue / Sales,number,True,Total revenue,1250000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Income,operating_expenses,Operating Expenses,number,False,Opex,350000.00,,Falsee
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Income,net_income,Net Income,number,True,Profit/loss,220000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Balance,as_of_date,Balance Sheet Date,date,True,Statement date,2024-12-31,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Balance,intangibles_net,Intangibles Net,number,False,"Goodwill, IP",10000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Balance,short_term_assets,Short-Term Assets,number,False,Current assets,20000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Balance,long_term_assets,Long-Term Assets,number,False,Non-current assets,180000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Balance,total_assets,Total Assets,number,True,Assets = current + non-current,605000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Balance,short_term_debt,Short-Term Debt,number,False,Debt <12 months,20000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Balance,long_term_debt,Long-Term Debt,number,False,Debt >12 months,110000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Balance,total_liabilities,Total Liabilities,number,True,Current + long-term,235000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Documents,fs_income_statement_pdf,Income Statement (PDF),file,True,Official statement,,,True
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Documents,fs_balance_sheet_pdf,Balance Sheet (PDF),file,True,Official statement,,,True
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Documents,bank_statements,Bank Statements (last 3–6 months),file,True,Provide PDFs or CSVs,,,True
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial:Documents,tax_return_last_fy,Tax Filing (last FY),file,True,Filed tax return,,,True
+LIQUIDITY_PROVIDER_INDIVIDUAL,Banking,bank_name,Bank Name,string,True,Primary bank,Bancolombia S.A.,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Banking,bank_country,Bank Country,enum,True,ISO 3166-1,CO,US|CO|MX|BR|CL|GB|SG|HK|DE|FR|ES,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Banking,account_holder_name,Account Holder Name,string,True,As per account,Echosystem Technologies SAS,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Banking,account_number,Account Number / IBAN,string,True,IBAN/local format,CO12345678901234567890,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Banking,routing_number,Routing Number,string,False,ABA/CLABE/local,111000025,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Banking,swift_bic,SWIFT/BIC,string,False,8–11 characters,COLOCOBMXXX,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Banking,account_currency,Account Currency,enum,True,ISO 4217,USD,USD|EUR|COP|MXN|BRL|ARS,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Banking,bank_letter,Bank Letter / Void Cheque,file,False,Proof of ownership,,,True
+LIQUIDITY_PROVIDER_INDIVIDUAL,Financial,annual_income,Annual Income (USD),number,False,Yearly income,120000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Crypto,evm_address,EVM Wallet Address,address_eth,True,Wallet for USDC,0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Crypto,wallet_type,Wallet Type,enum,True,Embedded or External,embedded,embedded|external,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Crypto,preferred_chains,Preferred Chains,array,True,Chains for settlement,"[""Base"",""Optimism""]",Ethereum|Base|Optimism|Arbitrum|Polygon|Unichain,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Crypto,usdc_network,USDC Network Preference,enum,False,Primary USDC chain,Base,Ethereum|Base|Optimism|Arbitrum|Polygon,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Preferences,stablecoin,Stablecoin,enum,True,Preferred asset to deploy,USDC,USDC|EURC|USDT,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Preferences,chains,Allowed Chains,array,True,Networks LP is willing to use,"[""Base"",""Optimism""]",Ethereum|Base|Optimism|Arbitrum|Polygon|Unichain,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Preferences,ticket_min,Min Ticket Size (USD),number,True,Minimum per deal,10000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Preferences,ticket_max,Max Ticket Size (USD),number,True,Maximum per deal,250000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Preferences,target_apy,Target APY (%),number,True,Desired annualized return,18.0,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Preferences,advance_pct_max,Max Advance % (bps),integer,True,Upper bound advance offered,9000,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Preferences,discount_bps_min,Min Discount Rate (monthly bps),integer,True,Floor monthly rate,150,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Preferences,max_exposure_per_sme,Max Exposure per SME (USD),number,True,Concentration limit,100000.00,,False
+LIQUIDITY_PROVIDER_INDIVIDUAL,Preferences,excluded_industries,Excluded Industries,array,False,Industries not allowed,"[""Gambling"",""Weapons""]",,False
