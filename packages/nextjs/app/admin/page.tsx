@@ -68,7 +68,7 @@ export default function AdminPage() {
       loadVerificationRequests();
       loadCashRequests();
     }
-  }, [isAdmin]);
+  }, [isAdmin, loadVerificationRequests, loadCashRequests]);
 
   const loadVerificationRequests = async () => {
     setIsLoading(true);

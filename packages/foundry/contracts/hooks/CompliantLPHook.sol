@@ -1,171 +1,147 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
+
+import {BaseHook} from "v4-periphery/src/utils/BaseHook.sol";
+import {Hooks} from "@uniswap/v4-core/src/libraries/Hooks.sol";
+import {IPoolManager} from "@uniswap/v4-core/src/interfaces/IPoolManager.sol";
+import {PoolKey} from "@uniswap/v4-core/src/types/PoolKey.sol";
+import {PoolId, PoolIdLibrary} from "@uniswap/v4-core/src/types/PoolId.sol";
+import {BalanceDelta} from "@uniswap/v4-core/src/types/BalanceDelta.sol";
+import {BeforeSwapDelta, BeforeSwapDeltaLibrary} from "@uniswap/v4-core/src/types/BeforeSwapDelta.sol";
+import {ModifyLiquidityParams, SwapParams} from "@uniswap/v4-core/src/types/PoolOperation.sol";
 
 /**
  * @title CompliantLPHook
- * @notice A simple Uniswap v4 hook that enforces ComplianceNFT ownership for swaps and liquidity provision
- * @dev Self-contained implementation without external v4 dependencies
+ * @notice A proper Uniswap v4 BaseHook that enforces ComplianceNFT ownership
+ * @dev Inherits from BaseHook with correct interface implementation
  */
-
-// ========== INTERFACES ==========
 
 interface IComplianceCheck {
     function isCompliant(address account) external view returns (bool);
 }
 
-interface IPoolManager {
-    struct ModifyLiquidityParams {
-        int24 tickLower;
-        int24 tickUpper;
-        int256 liquidityDelta;
-        bytes32 salt;
-    }
+contract CompliantLPHook is BaseHook {
+    using PoolIdLibrary for PoolKey;
 
-    struct SwapParams {
-        bool zeroForOne;
-        int256 amountSpecified;
-        uint160 sqrtPriceLimitX96;
-    }
-}
-
-// ========== TYPES ==========
-
-type Currency is address;
-
-struct PoolKey {
-    Currency currency0;
-    Currency currency1;
-    uint24 fee;
-    int24 tickSpacing;
-    address hooks;
-}
-
-// ========== HOOK CONTRACT ==========
-
-contract CompliantLPHook {
     // Custom errors
     error NotCompliant();
     error InvalidComplianceNFT();
-    error NotPoolManager();
 
-    // Immutable state
-    address public immutable poolManager;
+    // State variables
     IComplianceCheck public immutable complianceNFT;
 
     // Events for tracking compliance checks
     event ComplianceCheckPassed(address indexed user, string action);
     event ComplianceCheckFailed(address indexed user, string action);
 
-    constructor(address _poolManager, address _complianceNFT) {
-        if (_poolManager == address(0)) revert NotPoolManager();
+    /**
+     * @notice Constructor
+     * @param _poolManager Address of the Uniswap v4 PoolManager
+     * @param _complianceNFT Address of the ComplianceNFT contract
+     */
+    constructor(IPoolManager _poolManager, address _complianceNFT) BaseHook(_poolManager) {
         if (_complianceNFT == address(0)) revert InvalidComplianceNFT();
-        
-        poolManager = _poolManager;
         complianceNFT = IComplianceCheck(_complianceNFT);
     }
 
-    modifier onlyPoolManager() {
-        if (msg.sender != poolManager) revert NotPoolManager();
-        _;
+    /**
+     * @notice Returns the hook permissions
+     * @return Hooks.Permissions struct indicating which hooks are enabled
+     */
+    function getHookPermissions() public pure override returns (Hooks.Permissions memory) {
+        return Hooks.Permissions({
+            beforeInitialize: false,
+            afterInitialize: false,
+            beforeAddLiquidity: true,
+            afterAddLiquidity: false,
+            beforeRemoveLiquidity: true,
+            afterRemoveLiquidity: false,
+            beforeSwap: true,
+            afterSwap: false,
+            beforeDonate: false,
+            afterDonate: false,
+            beforeSwapReturnDelta: false,
+            afterSwapReturnDelta: false,
+            afterAddLiquidityReturnDelta: false,
+            afterRemoveLiquidityReturnDelta: false
+        });
     }
 
-    // ========== HOOK FUNCTIONS ==========
+    // ========== HOOK IMPLEMENTATIONS ==========
 
     /**
      * @dev Hook called before any swap - enforces compliance
      */
-    function beforeSwap(
+    function _beforeSwap(
         address sender,
         PoolKey calldata key,
-        IPoolManager.SwapParams calldata params,
+        SwapParams calldata params,
         bytes calldata hookData
-    ) external onlyPoolManager returns (bytes4) {
-        // Check if the sender is compliant
-        if (!complianceNFT.isCompliant(sender)) {
-            emit ComplianceCheckFailed(sender, "Swap");
+    ) internal override returns (bytes4, BeforeSwapDelta, uint24) {
+        // Extract the actual user from hookData if provided
+        address user = sender;
+        if (hookData.length >= 20) {
+            user = abi.decode(hookData, (address));
+        }
+
+        // Check if the user is compliant
+        if (!complianceNFT.isCompliant(user)) {
+            emit ComplianceCheckFailed(user, "Swap");
             revert NotCompliant();
         }
 
-        emit ComplianceCheckPassed(sender, "Swap");
-        return this.beforeSwap.selector;
+        emit ComplianceCheckPassed(user, "Swap");
+        return (BaseHook.beforeSwap.selector, BeforeSwapDeltaLibrary.ZERO_DELTA, 0);
     }
 
     /**
-     * @dev Hook called before adding/removing liquidity - enforces compliance
+     * @dev Hook called before adding liquidity - enforces compliance
      */
-    function beforeModifyPosition(
+    function _beforeAddLiquidity(
         address sender,
         PoolKey calldata key,
-        IPoolManager.ModifyLiquidityParams calldata params,
+        ModifyLiquidityParams calldata params,
         bytes calldata hookData
-    ) external onlyPoolManager returns (bytes4) {
-        // Check if the sender is compliant
-        if (!complianceNFT.isCompliant(sender)) {
-            emit ComplianceCheckFailed(sender, "ModifyPosition");
+    ) internal override returns (bytes4) {
+        // Extract the actual user from hookData if provided
+        address user = sender;
+        if (hookData.length >= 20) {
+            user = abi.decode(hookData, (address));
+        }
+
+        // Check if the user is compliant
+        if (!complianceNFT.isCompliant(user)) {
+            emit ComplianceCheckFailed(user, "AddLiquidity");
             revert NotCompliant();
         }
 
-        emit ComplianceCheckPassed(sender, "ModifyPosition");
-        return this.beforeModifyPosition.selector;
+        emit ComplianceCheckPassed(user, "AddLiquidity");
+        return BaseHook.beforeAddLiquidity.selector;
     }
 
-    // ========== PLACEHOLDER HOOKS (Required for Uniswap v4) ==========
-
-    function beforeInitialize(
+    /**
+     * @dev Hook called before removing liquidity - enforces compliance
+     */
+    function _beforeRemoveLiquidity(
         address sender,
         PoolKey calldata key,
-        uint160 sqrtPriceX96,
+        ModifyLiquidityParams calldata params,
         bytes calldata hookData
-    ) external view onlyPoolManager returns (bytes4) {
-        return this.beforeInitialize.selector;
-    }
+    ) internal override returns (bytes4) {
+        // Extract the actual user from hookData if provided
+        address user = sender;
+        if (hookData.length >= 20) {
+            user = abi.decode(hookData, (address));
+        }
 
-    function afterInitialize(
-        address sender,
-        PoolKey calldata key,
-        uint160 sqrtPriceX96,
-        int24 tick,
-        bytes calldata hookData
-    ) external view onlyPoolManager returns (bytes4) {
-        return this.afterInitialize.selector;
-    }
+        // Check if the user is compliant
+        if (!complianceNFT.isCompliant(user)) {
+            emit ComplianceCheckFailed(user, "RemoveLiquidity");
+            revert NotCompliant();
+        }
 
-    function afterModifyPosition(
-        address sender,
-        PoolKey calldata key,
-        IPoolManager.ModifyLiquidityParams calldata params,
-        bytes calldata hookData
-    ) external view onlyPoolManager returns (bytes4) {
-        return this.afterModifyPosition.selector;
-    }
-
-    function afterSwap(
-        address sender,
-        PoolKey calldata key,
-        IPoolManager.SwapParams calldata params,
-        bytes calldata hookData
-    ) external view onlyPoolManager returns (bytes4) {
-        return this.afterSwap.selector;
-    }
-
-    function beforeDonate(
-        address sender,
-        PoolKey calldata key,
-        uint256 amount0,
-        uint256 amount1,
-        bytes calldata hookData
-    ) external view onlyPoolManager returns (bytes4) {
-        return this.beforeDonate.selector;
-    }
-
-    function afterDonate(
-        address sender,
-        PoolKey calldata key,
-        uint256 amount0,
-        uint256 amount1,
-        bytes calldata hookData
-    ) external view onlyPoolManager returns (bytes4) {
-        return this.afterDonate.selector;
+        emit ComplianceCheckPassed(user, "RemoveLiquidity");
+        return BaseHook.beforeRemoveLiquidity.selector;
     }
 
     // ========== VIEW FUNCTIONS ==========
@@ -188,7 +164,7 @@ contract CompliantLPHook {
      * @dev Get the PoolManager address
      */
     function getPoolManager() external view returns (address) {
-        return poolManager;
+        return address(poolManager);
     }
 
     /**
@@ -199,6 +175,6 @@ contract CompliantLPHook {
         address complianceNFT_,
         bool enforceCompliance_
     ) {
-        return (poolManager, address(complianceNFT), true);
+        return (address(poolManager), address(complianceNFT), true);
     }
 }

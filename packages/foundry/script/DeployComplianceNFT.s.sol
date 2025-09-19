@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "./DeployHelpers.s.sol";
-import "../contracts/ ComplianceNFT.sol";
+import "../contracts/ComplianceNFT.sol";
 
 /**
  * @notice Deploy script for ComplianceNFT contract

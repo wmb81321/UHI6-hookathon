@@ -19,19 +19,14 @@ interface CashRequest {
   createdAt: string;
 }
 
-interface BankAccount {
-  id: string;
-  alias?: string;
-  bankName?: string;
-  accountNoMasked?: string;
-  currency?: string;
-}
+// BankAccount interface removed - not currently used
 
 export default function FundingPage() {
   const { address, isConnected } = useAccount();
   const [activeTab, setActiveTab] = useState<"in" | "out">("in");
   const [cashRequests, setCashRequests] = useState<CashRequest[]>([]);
-  const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
+  // Bank accounts functionality - placeholder for future implementation
+  // const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   
   // Cash In form
@@ -56,7 +51,7 @@ export default function FundingPage() {
     if (address && isCompliant) {
       loadCashRequests();
     }
-  }, [address, isCompliant]);
+  }, [address, isCompliant, loadCashRequests]);
 
   const loadCashRequests = async () => {
     if (!address) return;

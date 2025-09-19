@@ -2,8 +2,9 @@
 pragma solidity ^0.8.20;
 
 import "./DeployHelpers.s.sol";
-import "../contracts/ ComplianceNFT.sol";
+import "../contracts/ComplianceNFT.sol";
 import "../contracts/hooks/CompliantLPHook.sol";
+import {IPoolManager} from "@uniswap/v4-core/src/interfaces/IPoolManager.sol";
 
 /**
  * @notice Complete deployment script for Convexo platform
@@ -29,7 +30,7 @@ contract DeployConvexoComplete is ScaffoldETHDeploy {
         address poolManager = 0x00B036B58a818B1BC34d502D3fE730Db729e62AC; // Unichain Sepolia PoolManager
         
         CompliantLPHook compliantLPHook = new CompliantLPHook(
-            poolManager,
+            IPoolManager(poolManager),
             address(complianceNFT)  // Link to newly deployed NFT
         );
         

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "./DeployHelpers.s.sol";
-import { DeployConvexoComplete } from "./DeployConvexoComplete.s.sol";
+import { DeployCompliantHookWithMiner } from "./DeployCompliantHookWithMiner.s.sol";
 
 /**
  * @notice Main deployment script for Convexo platform
@@ -16,8 +16,8 @@ contract DeployScript is ScaffoldETHDeploy {
         console.log("This will deploy ComplianceNFT + CompliantLPHook with proper linking");
         console.log("");
         
-        // Deploy everything using the complete script
-        DeployConvexoComplete deployConvexo = new DeployConvexoComplete();
+        // Deploy everything using the HookMiner script
+        DeployCompliantHookWithMiner deployConvexo = new DeployCompliantHookWithMiner();
         deployConvexo.run();
         
         console.log("");

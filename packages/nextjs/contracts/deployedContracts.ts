@@ -7,55 +7,851 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   1301: {
     ComplianceNFT: {
-      address: "0x0efD6e19fDca08bCe4EFDb1C11C8C65996439990",
+      address: "0x50c01dce509246f7ed0b484a66b262d7d1b063de",
       abi: [
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "adminMint",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
+          type: "constructor",
+          inputs: [
+            {
+              name: "name",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "symbol",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
         },
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "adminRenew",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
+          type: "function",
+          name: "VALIDITY_DURATION",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
         },
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "adminRevoke",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
+          type: "function",
+          name: "adminMint",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
         },
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "isCompliant",
-          "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-          "stateMutability": "view",
-          "type": "function"
+          type: "function",
+          name: "adminRenew",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
         },
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "tokenOf",
-          "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-          "stateMutability": "view",
-          "type": "function"
+          type: "function",
+          name: "adminRevoke",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
         },
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "validUntil",
-          "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-          "stateMutability": "view",
-          "type": "function"
-        }
+          type: "function",
+          name: "approve",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
+          name: "balanceOf",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getAccountInfo",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "hasNFT",
+              type: "bool",
+              internalType: "bool",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "expiryTimestamp",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "isCurrentlyCompliant",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getAdmin",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getAllHolders",
+          inputs: [],
+          outputs: [
+            {
+              name: "holders",
+              type: "address[]",
+              internalType: "address[]",
+            },
+            {
+              name: "tokenIds",
+              type: "uint256[]",
+              internalType: "uint256[]",
+            },
+            {
+              name: "expiries",
+              type: "uint256[]",
+              internalType: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getApproved",
+          inputs: [
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getContractInfo",
+          inputs: [],
+          outputs: [
+            {
+              name: "contractAddress",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "adminAddress",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "totalMinted",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "nextTokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getValidUntil",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "isAdmin",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "isApprovedForAll",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "operator",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "isCompliant",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "name",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "owner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "ownerOf",
+          inputs: [
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "renounceOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "safeTransferFrom",
+          inputs: [
+            {
+              name: "from",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "safeTransferFrom",
+          inputs: [
+            {
+              name: "from",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "data",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "setApprovalForAll",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          outputs: [],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
+          name: "supportsInterface",
+          inputs: [
+            {
+              name: "interfaceId",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "symbol",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "tokenOf",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "tokenURI",
+          inputs: [
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "transferFrom",
+          inputs: [
+            {
+              name: "from",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "transferOwnership",
+          inputs: [
+            {
+              name: "newOwner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "validUntil",
+          inputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "event",
+          name: "Approval",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "approved",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "ApprovalForAll",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "operator",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "approved",
+              type: "bool",
+              indexed: false,
+              internalType: "bool",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "NFTMinted",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "validUntil",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "NFTRenewed",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "newValidUntil",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "NFTRevoked",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferred",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Transfer",
+          inputs: [
+            {
+              name: "from",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "to",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "ERC721IncorrectOwner",
+          inputs: [
+            {
+              name: "sender",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InsufficientApproval",
+          inputs: [
+            {
+              name: "operator",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InvalidApprover",
+          inputs: [
+            {
+              name: "approver",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InvalidOperator",
+          inputs: [
+            {
+              name: "operator",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InvalidReceiver",
+          inputs: [
+            {
+              name: "receiver",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InvalidSender",
+          inputs: [
+            {
+              name: "sender",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721NonexistentToken",
+          inputs: [
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableInvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableUnauthorizedAccount",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
       ],
       inheritedFunctions: {},
+      deployedOnBlock: 31406348,
     },
     CompliantLPHook: {
-      address: "0xb38deb534cc5acbb32e2faeb7b15018724b59790",
+      address: "0x9b93a748CCF4E4D829cB6ad7aFD8e77DA20bca80",
       abi: [
         {
           type: "constructor",
@@ -63,12 +859,110 @@ const deployedContracts = {
             {
               name: "_poolManager",
               type: "address",
-              internalType: "address",
+              internalType: "contract IPoolManager",
             },
             {
               name: "_complianceNFT",
               type: "address",
               internalType: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "afterAddLiquidity",
+          inputs: [
+            {
+              name: "sender",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "key",
+              type: "tuple",
+              internalType: "struct PoolKey",
+              components: [
+                {
+                  name: "currency0",
+                  type: "address",
+                  internalType: "Currency",
+                },
+                {
+                  name: "currency1",
+                  type: "address",
+                  internalType: "Currency",
+                },
+                {
+                  name: "fee",
+                  type: "uint24",
+                  internalType: "uint24",
+                },
+                {
+                  name: "tickSpacing",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "hooks",
+                  type: "address",
+                  internalType: "contract IHooks",
+                },
+              ],
+            },
+            {
+              name: "params",
+              type: "tuple",
+              internalType: "struct ModifyLiquidityParams",
+              components: [
+                {
+                  name: "tickLower",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "tickUpper",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "liquidityDelta",
+                  type: "int256",
+                  internalType: "int256",
+                },
+                {
+                  name: "salt",
+                  type: "bytes32",
+                  internalType: "bytes32",
+                },
+              ],
+            },
+            {
+              name: "delta",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
+            {
+              name: "feesAccrued",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
+            {
+              name: "hookData",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+            {
+              name: "",
+              type: "int256",
+              internalType: "BalanceDelta",
             },
           ],
           stateMutability: "nonpayable",
@@ -110,7 +1004,7 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
@@ -137,7 +1031,7 @@ const deployedContracts = {
               internalType: "bytes4",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
@@ -176,7 +1070,7 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
@@ -190,11 +1084,6 @@ const deployedContracts = {
               type: "int24",
               internalType: "int24",
             },
-            {
-              name: "hookData",
-              type: "bytes",
-              internalType: "bytes",
-            },
           ],
           outputs: [
             {
@@ -203,11 +1092,11 @@ const deployedContracts = {
               internalType: "bytes4",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
-          name: "afterModifyPosition",
+          name: "afterRemoveLiquidity",
           inputs: [
             {
               name: "sender",
@@ -242,14 +1131,14 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
             {
               name: "params",
               type: "tuple",
-              internalType: "struct IPoolManager.ModifyLiquidityParams",
+              internalType: "struct ModifyLiquidityParams",
               components: [
                 {
                   name: "tickLower",
@@ -274,6 +1163,16 @@ const deployedContracts = {
               ],
             },
             {
+              name: "delta",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
+            {
+              name: "feesAccrued",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
+            {
               name: "hookData",
               type: "bytes",
               internalType: "bytes",
@@ -285,8 +1184,13 @@ const deployedContracts = {
               type: "bytes4",
               internalType: "bytes4",
             },
+            {
+              name: "",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
@@ -325,14 +1229,14 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
             {
               name: "params",
               type: "tuple",
-              internalType: "struct IPoolManager.SwapParams",
+              internalType: "struct SwapParams",
               components: [
                 {
                   name: "zeroForOne",
@@ -352,6 +1256,99 @@ const deployedContracts = {
               ],
             },
             {
+              name: "delta",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
+            {
+              name: "hookData",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+            {
+              name: "",
+              type: "int128",
+              internalType: "int128",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "beforeAddLiquidity",
+          inputs: [
+            {
+              name: "sender",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "key",
+              type: "tuple",
+              internalType: "struct PoolKey",
+              components: [
+                {
+                  name: "currency0",
+                  type: "address",
+                  internalType: "Currency",
+                },
+                {
+                  name: "currency1",
+                  type: "address",
+                  internalType: "Currency",
+                },
+                {
+                  name: "fee",
+                  type: "uint24",
+                  internalType: "uint24",
+                },
+                {
+                  name: "tickSpacing",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "hooks",
+                  type: "address",
+                  internalType: "contract IHooks",
+                },
+              ],
+            },
+            {
+              name: "params",
+              type: "tuple",
+              internalType: "struct ModifyLiquidityParams",
+              components: [
+                {
+                  name: "tickLower",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "tickUpper",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "liquidityDelta",
+                  type: "int256",
+                  internalType: "int256",
+                },
+                {
+                  name: "salt",
+                  type: "bytes32",
+                  internalType: "bytes32",
+                },
+              ],
+            },
+            {
               name: "hookData",
               type: "bytes",
               internalType: "bytes",
@@ -364,7 +1361,7 @@ const deployedContracts = {
               internalType: "bytes4",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
@@ -403,7 +1400,7 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
@@ -430,7 +1427,7 @@ const deployedContracts = {
               internalType: "bytes4",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
@@ -469,7 +1466,7 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
@@ -477,11 +1474,6 @@ const deployedContracts = {
               name: "sqrtPriceX96",
               type: "uint160",
               internalType: "uint160",
-            },
-            {
-              name: "hookData",
-              type: "bytes",
-              internalType: "bytes",
             },
           ],
           outputs: [
@@ -491,11 +1483,11 @@ const deployedContracts = {
               internalType: "bytes4",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
-          name: "beforeModifyPosition",
+          name: "beforeRemoveLiquidity",
           inputs: [
             {
               name: "sender",
@@ -530,14 +1522,14 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
             {
               name: "params",
               type: "tuple",
-              internalType: "struct IPoolManager.ModifyLiquidityParams",
+              internalType: "struct ModifyLiquidityParams",
               components: [
                 {
                   name: "tickLower",
@@ -613,14 +1605,14 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
             {
               name: "params",
               type: "tuple",
-              internalType: "struct IPoolManager.SwapParams",
+              internalType: "struct SwapParams",
               components: [
                 {
                   name: "zeroForOne",
@@ -650,6 +1642,16 @@ const deployedContracts = {
               name: "",
               type: "bytes4",
               internalType: "bytes4",
+            },
+            {
+              name: "",
+              type: "int256",
+              internalType: "BeforeSwapDelta",
+            },
+            {
+              name: "",
+              type: "uint24",
+              internalType: "uint24",
             },
           ],
           stateMutability: "nonpayable",
@@ -705,6 +1707,91 @@ const deployedContracts = {
         },
         {
           type: "function",
+          name: "getHookPermissions",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "tuple",
+              internalType: "struct Hooks.Permissions",
+              components: [
+                {
+                  name: "beforeInitialize",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterInitialize",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "beforeAddLiquidity",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterAddLiquidity",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "beforeRemoveLiquidity",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterRemoveLiquidity",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "beforeSwap",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterSwap",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "beforeDonate",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterDonate",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "beforeSwapReturnDelta",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterSwapReturnDelta",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterAddLiquidityReturnDelta",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterRemoveLiquidityReturnDelta",
+                  type: "bool",
+                  internalType: "bool",
+                },
+              ],
+            },
+          ],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
           name: "getPoolManager",
           inputs: [],
           outputs: [
@@ -743,7 +1830,7 @@ const deployedContracts = {
             {
               name: "",
               type: "address",
-              internalType: "address",
+              internalType: "contract IPoolManager",
             },
           ],
           stateMutability: "view",
@@ -785,6 +1872,11 @@ const deployedContracts = {
             },
           ],
           anonymous: false,
+        },
+        {
+          type: "error",
+          name: "HookNotImplemented",
+          inputs: [],
         },
         {
           type: "error",
@@ -808,52 +1900,848 @@ const deployedContracts = {
   },
   31337: {
     ComplianceNFT: {
-      address: "0xe1Aa25618fA0c7A1CFDab5d6B456af611873b629",
+      address: "0xe1aa25618fa0c7a1cfdab5d6b456af611873b629",
       abi: [
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "adminMint",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
+          type: "constructor",
+          inputs: [
+            {
+              name: "name",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "symbol",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
         },
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "adminRenew",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
+          type: "function",
+          name: "VALIDITY_DURATION",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
         },
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "adminRevoke",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
+          type: "function",
+          name: "adminMint",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
         },
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "isCompliant",
-          "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-          "stateMutability": "view",
-          "type": "function"
+          type: "function",
+          name: "adminRenew",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
         },
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "tokenOf",
-          "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-          "stateMutability": "view",
-          "type": "function"
+          type: "function",
+          name: "adminRevoke",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
         },
         {
-          "inputs": [{"internalType": "address", "name": "account", "type": "address"}],
-          "name": "validUntil",
-          "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-          "stateMutability": "view",
-          "type": "function"
-        }
+          type: "function",
+          name: "approve",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
+          name: "balanceOf",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getAccountInfo",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "hasNFT",
+              type: "bool",
+              internalType: "bool",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "expiryTimestamp",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "isCurrentlyCompliant",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getAdmin",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getAllHolders",
+          inputs: [],
+          outputs: [
+            {
+              name: "holders",
+              type: "address[]",
+              internalType: "address[]",
+            },
+            {
+              name: "tokenIds",
+              type: "uint256[]",
+              internalType: "uint256[]",
+            },
+            {
+              name: "expiries",
+              type: "uint256[]",
+              internalType: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getApproved",
+          inputs: [
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getContractInfo",
+          inputs: [],
+          outputs: [
+            {
+              name: "contractAddress",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "adminAddress",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "totalMinted",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "nextTokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getValidUntil",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "isAdmin",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "isApprovedForAll",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "operator",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "isCompliant",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "name",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "owner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "ownerOf",
+          inputs: [
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "renounceOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "safeTransferFrom",
+          inputs: [
+            {
+              name: "from",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "safeTransferFrom",
+          inputs: [
+            {
+              name: "from",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "data",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "setApprovalForAll",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          outputs: [],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
+          name: "supportsInterface",
+          inputs: [
+            {
+              name: "interfaceId",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "symbol",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "tokenOf",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "tokenURI",
+          inputs: [
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "transferFrom",
+          inputs: [
+            {
+              name: "from",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "transferOwnership",
+          inputs: [
+            {
+              name: "newOwner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "validUntil",
+          inputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "event",
+          name: "Approval",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "approved",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "ApprovalForAll",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "operator",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "approved",
+              type: "bool",
+              indexed: false,
+              internalType: "bool",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "NFTMinted",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "validUntil",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "NFTRenewed",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "newValidUntil",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "NFTRevoked",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferred",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Transfer",
+          inputs: [
+            {
+              name: "from",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "to",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "ERC721IncorrectOwner",
+          inputs: [
+            {
+              name: "sender",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InsufficientApproval",
+          inputs: [
+            {
+              name: "operator",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InvalidApprover",
+          inputs: [
+            {
+              name: "approver",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InvalidOperator",
+          inputs: [
+            {
+              name: "operator",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InvalidReceiver",
+          inputs: [
+            {
+              name: "receiver",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721InvalidSender",
+          inputs: [
+            {
+              name: "sender",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC721NonexistentToken",
+          inputs: [
+            {
+              name: "tokenId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableInvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableUnauthorizedAccount",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
       ],
       inheritedFunctions: {},
+      deployedOnBlock: 5,
     },
     CompliantLPHook: {
       address: "0x8ce361602b935680e8dec218b820ff5056beb7af",
@@ -864,12 +2752,110 @@ const deployedContracts = {
             {
               name: "_poolManager",
               type: "address",
-              internalType: "address",
+              internalType: "contract IPoolManager",
             },
             {
               name: "_complianceNFT",
               type: "address",
               internalType: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "afterAddLiquidity",
+          inputs: [
+            {
+              name: "sender",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "key",
+              type: "tuple",
+              internalType: "struct PoolKey",
+              components: [
+                {
+                  name: "currency0",
+                  type: "address",
+                  internalType: "Currency",
+                },
+                {
+                  name: "currency1",
+                  type: "address",
+                  internalType: "Currency",
+                },
+                {
+                  name: "fee",
+                  type: "uint24",
+                  internalType: "uint24",
+                },
+                {
+                  name: "tickSpacing",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "hooks",
+                  type: "address",
+                  internalType: "contract IHooks",
+                },
+              ],
+            },
+            {
+              name: "params",
+              type: "tuple",
+              internalType: "struct ModifyLiquidityParams",
+              components: [
+                {
+                  name: "tickLower",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "tickUpper",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "liquidityDelta",
+                  type: "int256",
+                  internalType: "int256",
+                },
+                {
+                  name: "salt",
+                  type: "bytes32",
+                  internalType: "bytes32",
+                },
+              ],
+            },
+            {
+              name: "delta",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
+            {
+              name: "feesAccrued",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
+            {
+              name: "hookData",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+            {
+              name: "",
+              type: "int256",
+              internalType: "BalanceDelta",
             },
           ],
           stateMutability: "nonpayable",
@@ -911,7 +2897,7 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
@@ -938,7 +2924,7 @@ const deployedContracts = {
               internalType: "bytes4",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
@@ -977,7 +2963,7 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
@@ -991,11 +2977,6 @@ const deployedContracts = {
               type: "int24",
               internalType: "int24",
             },
-            {
-              name: "hookData",
-              type: "bytes",
-              internalType: "bytes",
-            },
           ],
           outputs: [
             {
@@ -1004,11 +2985,11 @@ const deployedContracts = {
               internalType: "bytes4",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
-          name: "afterModifyPosition",
+          name: "afterRemoveLiquidity",
           inputs: [
             {
               name: "sender",
@@ -1042,15 +3023,15 @@ const deployedContracts = {
                 },
                 {
                   name: "hooks",
-              type: "address",
-              internalType: "address",
+                  type: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
             {
               name: "params",
               type: "tuple",
-              internalType: "struct IPoolManager.ModifyLiquidityParams",
+              internalType: "struct ModifyLiquidityParams",
               components: [
                 {
                   name: "tickLower",
@@ -1075,6 +3056,16 @@ const deployedContracts = {
               ],
             },
             {
+              name: "delta",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
+            {
+              name: "feesAccrued",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
+            {
               name: "hookData",
               type: "bytes",
               internalType: "bytes",
@@ -1086,8 +3077,13 @@ const deployedContracts = {
               type: "bytes4",
               internalType: "bytes4",
             },
+            {
+              name: "",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
@@ -1126,14 +3122,14 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
             {
               name: "params",
               type: "tuple",
-              internalType: "struct IPoolManager.SwapParams",
+              internalType: "struct SwapParams",
               components: [
                 {
                   name: "zeroForOne",
@@ -1153,6 +3149,99 @@ const deployedContracts = {
               ],
             },
             {
+              name: "delta",
+              type: "int256",
+              internalType: "BalanceDelta",
+            },
+            {
+              name: "hookData",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+            {
+              name: "",
+              type: "int128",
+              internalType: "int128",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "beforeAddLiquidity",
+          inputs: [
+            {
+              name: "sender",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "key",
+              type: "tuple",
+              internalType: "struct PoolKey",
+              components: [
+                {
+                  name: "currency0",
+                  type: "address",
+                  internalType: "Currency",
+                },
+                {
+                  name: "currency1",
+                  type: "address",
+                  internalType: "Currency",
+                },
+                {
+                  name: "fee",
+                  type: "uint24",
+                  internalType: "uint24",
+                },
+                {
+                  name: "tickSpacing",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "hooks",
+                  type: "address",
+                  internalType: "contract IHooks",
+                },
+              ],
+            },
+            {
+              name: "params",
+              type: "tuple",
+              internalType: "struct ModifyLiquidityParams",
+              components: [
+                {
+                  name: "tickLower",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "tickUpper",
+                  type: "int24",
+                  internalType: "int24",
+                },
+                {
+                  name: "liquidityDelta",
+                  type: "int256",
+                  internalType: "int256",
+                },
+                {
+                  name: "salt",
+                  type: "bytes32",
+                  internalType: "bytes32",
+                },
+              ],
+            },
+            {
               name: "hookData",
               type: "bytes",
               internalType: "bytes",
@@ -1165,7 +3254,7 @@ const deployedContracts = {
               internalType: "bytes4",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
@@ -1204,7 +3293,7 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
@@ -1231,7 +3320,7 @@ const deployedContracts = {
               internalType: "bytes4",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
@@ -1270,7 +3359,7 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
@@ -1278,11 +3367,6 @@ const deployedContracts = {
               name: "sqrtPriceX96",
               type: "uint160",
               internalType: "uint160",
-            },
-            {
-              name: "hookData",
-              type: "bytes",
-              internalType: "bytes",
             },
           ],
           outputs: [
@@ -1292,11 +3376,11 @@ const deployedContracts = {
               internalType: "bytes4",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
-          name: "beforeModifyPosition",
+          name: "beforeRemoveLiquidity",
           inputs: [
             {
               name: "sender",
@@ -1331,14 +3415,14 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
             {
               name: "params",
               type: "tuple",
-              internalType: "struct IPoolManager.ModifyLiquidityParams",
+              internalType: "struct ModifyLiquidityParams",
               components: [
                 {
                   name: "tickLower",
@@ -1414,14 +3498,14 @@ const deployedContracts = {
                 {
                   name: "hooks",
                   type: "address",
-                  internalType: "address",
+                  internalType: "contract IHooks",
                 },
               ],
             },
             {
               name: "params",
               type: "tuple",
-              internalType: "struct IPoolManager.SwapParams",
+              internalType: "struct SwapParams",
               components: [
                 {
                   name: "zeroForOne",
@@ -1451,6 +3535,16 @@ const deployedContracts = {
               name: "",
               type: "bytes4",
               internalType: "bytes4",
+            },
+            {
+              name: "",
+              type: "int256",
+              internalType: "BeforeSwapDelta",
+            },
+            {
+              name: "",
+              type: "uint24",
+              internalType: "uint24",
             },
           ],
           stateMutability: "nonpayable",
@@ -1506,6 +3600,91 @@ const deployedContracts = {
         },
         {
           type: "function",
+          name: "getHookPermissions",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "tuple",
+              internalType: "struct Hooks.Permissions",
+              components: [
+                {
+                  name: "beforeInitialize",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterInitialize",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "beforeAddLiquidity",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterAddLiquidity",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "beforeRemoveLiquidity",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterRemoveLiquidity",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "beforeSwap",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterSwap",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "beforeDonate",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterDonate",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "beforeSwapReturnDelta",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterSwapReturnDelta",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterAddLiquidityReturnDelta",
+                  type: "bool",
+                  internalType: "bool",
+                },
+                {
+                  name: "afterRemoveLiquidityReturnDelta",
+                  type: "bool",
+                  internalType: "bool",
+                },
+              ],
+            },
+          ],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
           name: "getPoolManager",
           inputs: [],
           outputs: [
@@ -1544,7 +3723,7 @@ const deployedContracts = {
             {
               name: "",
               type: "address",
-              internalType: "address",
+              internalType: "contract IPoolManager",
             },
           ],
           stateMutability: "view",
@@ -1586,6 +3765,11 @@ const deployedContracts = {
             },
           ],
           anonymous: false,
+        },
+        {
+          type: "error",
+          name: "HookNotImplemented",
+          inputs: [],
         },
         {
           type: "error",
