@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "~~/lib/prisma";
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
     const body = await request.json();
     const { status, adminAddress } = body;
-    const { id } = params;
+    const { id } = await context.params;
 
     // Verify admin address
     if (adminAddress !== process.env.NEXT_PUBLIC_ADMIN_ADDRESS) {
