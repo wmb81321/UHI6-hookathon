@@ -28,7 +28,7 @@ export const ComplianceStatus = ({ address, showDetails = true }: ComplianceStat
 
   const { data: validUntil } = useScaffoldReadContract({
     contractName: "ComplianceNFT",
-    functionName: "validUntil",
+    functionName: "getValidUntil",
     args: [targetAddress],
   });
 
