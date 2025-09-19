@@ -28,9 +28,15 @@ contract DeployComplianceNFT is ScaffoldETHDeploy {
         // Deploy ComplianceNFT with name and symbol
         ComplianceNFT complianceNFT = new ComplianceNFT("ComplianceNFT", "CNFT");
         
+        // Transfer ownership to the specified admin address
+        address adminAddress = 0x70478DBB02b4026437E5015A0B4798c99E04C564;
+        complianceNFT.transferOwnership(adminAddress);
+        
         // Add deployment to the list for export
         deployments.push(Deployment("ComplianceNFT", address(complianceNFT)));
         
         console.log("ComplianceNFT deployed at:", address(complianceNFT));
+        console.log("Admin/Owner set to:", adminAddress);
+        console.log("Admin can now mint, renew, and revoke NFTs");
     }
 }

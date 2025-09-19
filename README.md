@@ -1,80 +1,322 @@
-# 🏗 Scaffold-ETH 2
+# 🏗️ Convexo - Compliant DeFi Platform
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+> A comprehensive compliance platform for DeFi, featuring soulbound verification NFTs, Uniswap v4 hooks, and seamless fiat-to-crypto onboarding.
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+[![Built with Scaffold-ETH 2](https://img.shields.io/badge/built%20with-Scaffold--ETH%202-blue)](https://scaffoldeth.io/)
+[![Uniswap v4](https://img.shields.io/badge/Uniswap-v4%20Hooks-pink)](https://docs.uniswap.org/contracts/v4/overview)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-⚙️ Built using NextJS, RainbowKit, Foundry, Wagmi, Viem, and Typescript.
+## 🎯 Overview
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+Convexo is a production-grade DeFi platform that enforces AML/CFT compliance through:
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+- **🔒 Soulbound ComplianceNFTs** - 1-year validity, non-transferable verification tokens
+- **🔗 Uniswap v4 Hooks** - Permissioned liquidity pools (USDC/ECOP)
+- **👤 Role-Based Access** - Admin and User roles with proper gating
+- **💰 Funding Module** - Cash-in/cash-out requests for verified users
+- **📊 Admin Dashboard** - Complete NFT and request management
 
-## Requirements
+## 🏗️ Architecture
 
-Before you begin, you need to install the following tools:
+### **Smart Contracts**
+- **ComplianceNFT.sol** - Soulbound ERC721 with 1-year validity
+- **CompliantLPHook.sol** - Uniswap v4 hook for gated USDC/ECOP pools
 
-- [Node (>= v20.18.3)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+### **Frontend Stack**
+- **Next.js 15** - App Router with TypeScript
+- **Wagmi/Viem** - Ethereum interactions
+- **Prisma** - Database ORM (SQLite dev, Postgres prod)
+- **Tailwind CSS + DaisyUI** - Styling
 
-## Quickstart
+### **Supported Networks**
+- **Unichain Sepolia** (Chain ID: 1301) - Primary testnet
+- **Localhost** (Chain ID: 31337) - Development
 
-To get started with Scaffold-ETH 2, follow the steps below:
+## 🚀 Quick Start
 
-1. Install dependencies if it was skipped in CLI:
+### **Prerequisites**
+- Node.js >= v20.18.3
+- Yarn v1 or v2+
+- Git
 
-```
-cd my-dapp-example
+### **Installation**
+```bash
+git clone https://github.com/wmb81321/UHI6-hookathon.git
+cd UHI6-hookathon/convexo
 yarn install
 ```
 
-2. Run a local network in the first terminal:
+### **Development Setup**
 
-```
+#### **1. Start Local Blockchain**
+```bash
 yarn chain
 ```
 
-This command starts a local Ethereum network using Foundry. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `packages/foundry/foundry.toml`.
-
-3. On a second terminal, deploy the test contract:
-
-```
+#### **2. Deploy Contracts**
+```bash
+# Deploy to localhost
 yarn deploy
+
+# Deploy to Unichain Sepolia (requires keystore)
+yarn deploy --network unichainSepolia --keystore 0
 ```
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/foundry/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/foundry/script` to deploy the contract to the network. You can also customize the deploy script.
-
-4. On a third terminal, start your NextJS app:
-
-```
+#### **3. Start Frontend**
+```bash
 yarn start
 ```
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+Visit: **http://localhost:3000**
 
-Run smart contract test with `yarn foundry:test`
+## 📋 Features
 
-- Edit your smart contracts in `packages/foundry/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/foundry/script`
+### **🏠 Landing Page (`/`)**
+- Connect wallet interface
+- Compliance status display
+- Feature navigation (Profile, Funding, Admin)
 
+### **👤 User Profile (`/profile`)**
+- **Identity Management**: Address, Username, Email, ENS
+- **Compliance Panel**: NFT status, Token ID, expiry date
+- **Verification Requests**: Dynamic forms (Person/Institution)
+- **Token Balances**: ETH, USDC, ECOP with send functionality
 
-## Documentation
+### **💰 Funding Module (`/funding`)**
+- **Compliance Gated**: Only verified users can access
+- **Cash In/Out**: Request management with bank account linking
+- **Request History**: Status tracking and updates
 
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
+### **⚙️ Admin Panel (`/admin`)**
+- **NFT Management**: Mint, renew, revoke ComplianceNFTs
+- **Verification Queue**: Review and approve user requests
+- **Cash Requests**: Manage funding requests
+- **Contract Information**: Live contract stats and holder lists
 
-To know more about its features, check out our [website](https://scaffoldeth.io).
+### **🔍 Debug Section (`/debug`)**
+- **Interactive Contract UI**: Test all contract functions
+- **ComplianceNFT**: Mint, renew, revoke, compliance checks
+- **CompliantLPHook**: Hook configuration and compliance testing
 
-## Contributing to Scaffold-ETH 2
+## 🔧 Configuration
 
-We welcome contributions to Scaffold-ETH 2!
+### **Environment Variables**
 
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+Create `.env.local` in `packages/nextjs/`:
+
+```bash
+# Admin Configuration
+NEXT_PUBLIC_ADMIN_ADDRESS=0x70478DBB02b4026437E5015A0B4798c99E04C564
+
+# Contract Addresses (update after deployment)
+NEXT_PUBLIC_COMPLIANCE_NFT=0x[ComplianceNFT_Address]
+NEXT_PUBLIC_COMPLIANT_HOOK=0x[CompliantLPHook_Address]
+
+# Token Addresses (Unichain Sepolia)
+NEXT_PUBLIC_USDC=0x31d0220469e10c4E71834a79b1f276d740d3768F
+NEXT_PUBLIC_ECOP=0xfa3d179e2440d8a1fdf8ddbb3f3d23c36683d78b
+
+# Network Configuration
+NEXT_PUBLIC_CHAIN_ID=1301
+
+# Optional: Telegram Notifications
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_CHAT_ID=your_chat_id
+```
+
+### **Database Setup**
+
+The app uses Prisma with SQLite for development:
+
+```bash
+# Initialize database
+cd packages/nextjs
+npx prisma generate
+npx prisma db push
+```
+
+## 🌐 Deployment
+
+### **Smart Contracts**
+
+#### **Unichain Sepolia Addresses**
+- **PoolManager**: `0x00B036B58a818B1BC34d502D3fE730Db729e62AC`
+- **Universal Router**: `0xf70536b3bcc1bd1a972dc186a2cf84cc6da6be5d`
+- **Position Manager**: `0xf969aee60879c54baaed9f3ed26147db216fd664`
+
+#### **Deployment Scripts**
+- `Deploy.s.sol` - Main deployment script
+- `DeployComplianceNFT.s.sol` - Individual NFT deployment
+- `DeployCompliantLPHook.s.sol` - Individual hook deployment
+- `DeployConvexoComplete.s.sol` - Complete platform deployment
+
+### **Frontend Deployment**
+
+```bash
+# Build for production
+yarn build
+
+# Deploy to Vercel/Netlify
+yarn deploy
+```
+
+## 🔐 Security Features
+
+### **Compliance Enforcement**
+- **Soulbound NFTs** - Non-transferable, 1-year validity
+- **Admin-Only Minting** - Only authorized admin can issue NFTs
+- **Automatic Expiry** - Time-based compliance validation
+
+### **Pool Access Control**
+- **Hook-Gated Pools** - Only NFT holders can participate
+- **Swap Restrictions** - Compliance check before every swap
+- **Liquidity Gating** - Compliance check for LP operations
+
+### **Role-Based Access**
+- **Admin Functions** - Restricted to configured admin address
+- **User Verification** - Wallet-based authentication
+- **Request Gating** - Compliance-based feature access
+
+## 🔗 Uniswap v4 Integration
+
+### **CompliantLPHook**
+- **Hook Address**: `0x[YourDeployedHookAddress]`
+- **Permissions**: `beforeSwap` + `beforeModifyPosition`
+- **Enforcement**: Only ComplianceNFT holders can interact
+
+### **Creating Compliant Pools**
+
+1. **Go to**: https://app.uniswap.org
+2. **Switch to**: Unichain Sepolia (Chain ID: 1301)
+3. **Create Pool** with:
+   - **Token A**: USDC (`0x31d0220469e10c4E71834a79b1f276d740d3768F`)
+   - **Token B**: ECOP (`0xfa3d179e2440d8a1fdf8ddbb3f3d23c36683d78b`)
+   - **Hook**: Your deployed CompliantLPHook address
+   - **Fee**: 0.3% (3000)
+
+## 📊 API Reference
+
+### **Verification Endpoints**
+- `POST /api/verification/submit` - Submit verification request
+- `GET /api/verification/list` - List verification requests (admin)
+- `PATCH /api/verification/:id` - Update request status (admin)
+
+### **Cash Request Endpoints**
+- `POST /api/cash/submit` - Submit cash request
+- `GET /api/cash/list` - List cash requests (user/admin scoped)
+- `PATCH /api/cash/:id` - Update request status (admin)
+
+## 🧪 Testing
+
+### **Local Development**
+```bash
+# Start local chain
+yarn chain
+
+# Deploy contracts
+yarn deploy
+
+# Run tests
+yarn test
+```
+
+### **Contract Testing**
+- Use the **Debug section** (`/debug`) for interactive testing
+- Test compliance gating with different addresses
+- Verify admin functions work correctly
+
+## 🛠️ Development
+
+### **Project Structure**
+```
+convexo/
+├── packages/
+│   ├── foundry/          # Smart contracts
+│   │   ├── contracts/    # Solidity contracts
+│   │   ├── script/       # Deployment scripts
+│   │   └── test/         # Contract tests
+│   └── nextjs/           # Frontend application
+│       ├── app/          # Next.js app router
+│       ├── components/   # React components
+│       ├── contracts/    # Contract ABIs and addresses
+│       └── utils/        # Utility functions
+```
+
+### **Key Components**
+- **ComplianceStatus.tsx** - Shows user compliance status
+- **DynamicForm.tsx** - Renders verification forms from CSV
+- **ERC20Balance.tsx** - Displays token balances
+- **AdminContractInfo.tsx** - Contract information display
+
+### **Adding New Features**
+1. **Smart Contracts**: Add to `packages/foundry/contracts/`
+2. **Deployment**: Create script in `packages/foundry/script/`
+3. **Frontend**: Add pages/components in `packages/nextjs/`
+4. **API**: Add routes in `packages/nextjs/app/api/`
+
+## 🔧 Troubleshooting
+
+### **Common Issues**
+
+**Contracts not showing in debug section?**
+- Check `deployedContracts.ts` has correct addresses
+- Restart the development server
+- Verify network configuration
+
+**Admin functions not working?**
+- Ensure `NEXT_PUBLIC_ADMIN_ADDRESS` matches your wallet
+- Check ComplianceNFT is deployed and configured
+- Verify contract addresses in deployedContracts.ts
+
+**Hook deployment fails?**
+- Check Unichain Sepolia RPC is working
+- Ensure keystore has sufficient ETH
+- Try deploying to localhost first
+
+**Frontend build errors?**
+- Run `yarn lint --fix` to fix formatting
+- Check TypeScript errors with `yarn build`
+- Ensure all environment variables are set
+
+### **Network Issues**
+- **Unichain Sepolia RPC**: `https://sepolia.unichain.org`
+- **Chain ID**: 1301
+- **Block Explorer**: `https://sepolia.uniscan.xyz`
+
+## 📖 Documentation
+
+### **Contract Documentation**
+- **ComplianceNFT**: Soulbound ERC721 with admin controls
+- **CompliantLPHook**: Uniswap v4 hook with compliance gating
+
+### **API Documentation**
+- REST APIs for verification and cash requests
+- Telegram integration for notifications
+- Prisma database schema
+
+### **Frontend Documentation**
+- React components with TypeScript
+- Wagmi hooks for contract interactions
+- Scaffold-ETH utilities and components
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Built with [Scaffold-ETH 2](https://scaffoldeth.io/)
+- Powered by [Uniswap v4](https://docs.uniswap.org/contracts/v4/overview)
+- Deployed on [Unichain](https://unichain.org/)
+
+---
+
+**🎉 Ready for compliant DeFi! Deploy, configure, and start building the future of regulated decentralized finance.**

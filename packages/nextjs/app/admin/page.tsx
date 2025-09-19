@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
 import { AddressInput, Address } from "~~/components/scaffold-eth";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
+// AdminContractInfo removed - using direct contract calls
 
-const ADMIN_ADDRESS = process.env.NEXT_PUBLIC_ADMIN_ADDRESS;
+const ADMIN_ADDRESS = process.env.NEXT_PUBLIC_ADMIN_ADDRESS || "0x70478DBB02b4026437E5015A0B4798c99E04C564";
+const COMPLIANCE_NFT_ADDRESS = process.env.NEXT_PUBLIC_COMPLIANCE_NFT;
+const COMPLIANT_HOOK_ADDRESS = process.env.NEXT_PUBLIC_COMPLIANT_HOOK;
 
 interface VerificationRequest {
   id: string;
@@ -50,8 +53,9 @@ export default function AdminPage() {
   // NFT management
   const [nftTargetAddress, setNftTargetAddress] = useState("");
   const [isNftActionLoading, setIsNftActionLoading] = useState(false);
+  // NFT management state
 
-  // Contract interactions
+  // Contract interactions - using deployed contracts or .env configuration
   const { writeContractAsync: writeComplianceNFT } = useScaffoldWriteContract({
     contractName: "ComplianceNFT",
   });
@@ -205,14 +209,86 @@ export default function AdminPage() {
     );
   }
 
+  // Check if contracts are deployed via environment variables
+  const contractsDeployed = COMPLIANCE_NFT_ADDRESS && COMPLIANT_HOOK_ADDRESS;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-8">Admin Panel</h1>
 
+      {/* Deployment Status Alert */}
+      {!contractsDeployed && (
+        <div className="alert alert-warning mb-8">
+          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+          <div>
+            <h3 className="font-bold">Environment Variables Missing</h3>
+            <div className="text-xs space-y-1">
+              <div>1. Deploy contracts: <code className="bg-base-300 px-2 py-1 rounded">yarn deploy --network unichainSepolia</code></div>
+              <div>2. Update .env.local with:</div>
+              <div className="ml-4 space-y-1">
+                <div>• <code className="bg-base-300 px-1 rounded">NEXT_PUBLIC_COMPLIANCE_NFT=0x[DeployedAddress]</code></div>
+                <div>• <code className="bg-base-300 px-1 rounded">NEXT_PUBLIC_COMPLIANT_HOOK=0x[DeployedAddress]</code></div>
+              </div>
+              <div>3. Restart the app to see contract information</div>
+            </div>
+            <div className="mt-2">
+              <div className="text-xs opacity-70">
+                Current status: 
+                NFT={COMPLIANCE_NFT_ADDRESS ? "✅" : "❌"} 
+                Hook={COMPLIANT_HOOK_ADDRESS ? "✅" : "❌"}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Deployment Success Alert */}
+      {contractsDeployed && (
+        <div className="alert alert-success mb-8">
+          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <h3 className="font-bold">Contracts Deployed Successfully!</h3>
+            <div className="text-xs">
+              ComplianceNFT: <code className="bg-base-300 px-1 rounded">{COMPLIANCE_NFT_ADDRESS}</code> | 
+              Hook: <code className="bg-base-300 px-1 rounded">{COMPLIANT_HOOK_ADDRESS}</code>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Contract Status */}
+      {COMPLIANCE_NFT_ADDRESS && (
+        <div className="alert alert-success mb-8">
+          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <h3 className="font-bold">Contracts Configured!</h3>
+            <div className="text-xs">
+              ComplianceNFT: <code className="bg-base-300 px-1 rounded">{COMPLIANCE_NFT_ADDRESS}</code>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* NFT Management Section */}
       <div className="card bg-base-100 shadow-lg mb-8">
         <div className="card-body">
-          <h2 className="card-title">ComplianceNFT Management</h2>
+          <h2 className="card-title">NFT Management</h2>
+          
+          {/* Check if contracts are configured */}
+          {!COMPLIANCE_NFT_ADDRESS && (
+            <div className="alert alert-info mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span>Configure NEXT_PUBLIC_COMPLIANCE_NFT in .env.local to enable NFT management functions</span>
+            </div>
+          )}
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-control">
@@ -230,21 +306,21 @@ export default function AdminPage() {
               <button
                 className={`btn btn-success ${isNftActionLoading ? "loading" : ""}`}
                 onClick={() => handleNFTAction("mint")}
-                disabled={!nftTargetAddress || isNftActionLoading}
+                disabled={!nftTargetAddress || isNftActionLoading || !COMPLIANCE_NFT_ADDRESS}
               >
                 Mint
               </button>
               <button
                 className={`btn btn-warning ${isNftActionLoading ? "loading" : ""}`}
                 onClick={() => handleNFTAction("renew")}
-                disabled={!nftTargetAddress || isNftActionLoading}
+                disabled={!nftTargetAddress || isNftActionLoading || !COMPLIANCE_NFT_ADDRESS}
               >
                 Renew
               </button>
               <button
                 className={`btn btn-error ${isNftActionLoading ? "loading" : ""}`}
                 onClick={() => handleNFTAction("revoke")}
-                disabled={!nftTargetAddress || isNftActionLoading}
+                disabled={!nftTargetAddress || isNftActionLoading || !COMPLIANCE_NFT_ADDRESS}
               >
                 Revoke
               </button>
