@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useAccount } from "wagmi";
 import { Address, AddressInput } from "~~/components/scaffold-eth";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
@@ -64,7 +64,7 @@ export default function AdminPage() {
   // Check if user is admin
   const isAdmin = address === ADMIN_ADDRESS;
 
-  const loadVerificationRequests = async () => {
+  const loadVerificationRequests = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await fetch(`/api/verification/list?address=${address}`);
@@ -77,9 +77,9 @@ export default function AdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [address]);
 
-  const loadCashRequests = async () => {
+  const loadCashRequests = useCallback(async () => {
     try {
       const response = await fetch(`/api/cash/list?address=${address}`);
       if (response.ok) {
@@ -89,14 +89,14 @@ export default function AdminPage() {
     } catch (error) {
       console.error("Failed to load cash requests:", error);
     }
-  };
+  }, [address]);
 
   useEffect(() => {
     if (isAdmin) {
       loadVerificationRequests();
       loadCashRequests();
     }
-  }, [isAdmin]);
+  }, [isAdmin, loadVerificationRequests, loadCashRequests]);
 
   const updateVerificationStatus = async (requestId: string, status: string) => {
     try {

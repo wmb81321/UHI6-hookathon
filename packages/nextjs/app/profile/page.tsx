@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { formatEther, parseEther, parseUnits } from "viem";
+import { useState } from "react";
+import { parseEther, parseUnits } from "viem";
 import { useAccount } from "wagmi";
 import { useSendTransaction, useWriteContract } from "wagmi";
 import { ComplianceStatus } from "~~/components/ComplianceStatus";
