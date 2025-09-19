@@ -13,14 +13,11 @@ export async function GET(request: NextRequest) {
     const isAdmin = userAddress === adminAddress;
 
     if (!isAdmin && !userAddress) {
-      return NextResponse.json(
-        { error: "Address parameter required for non-admin requests" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Address parameter required for non-admin requests" }, { status: 400 });
     }
 
     // Build where clause
-    let whereClause: any = {};
+    const whereClause: any = {};
 
     if (!isAdmin) {
       whereClause.address = userAddress;
@@ -37,23 +34,22 @@ export async function GET(request: NextRequest) {
     const cashRequests = await prisma.cashRequest.findMany({
       where: whereClause,
       orderBy: { createdAt: "desc" },
-      include: isAdmin ? {
-        user: {
-          select: {
-            username: true,
-            email: true,
-            ens: true,
-          },
-        },
-      } : undefined,
+      include: isAdmin
+        ? {
+            user: {
+              select: {
+                username: true,
+                email: true,
+                ens: true,
+              },
+            },
+          }
+        : undefined,
     });
 
     return NextResponse.json({ requests: cashRequests });
   } catch (error) {
     console.error("Error fetching cash requests:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

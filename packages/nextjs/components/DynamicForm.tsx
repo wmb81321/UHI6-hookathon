@@ -71,11 +71,19 @@ export const DynamicForm = ({ schema, onSubmit, onCancel, isLoading = false }: D
           <input
             type="file"
             className="file-input file-input-bordered w-full"
-            onChange={(e) => handleInputChange(field_key, e.target.files?.[0])}
+            onChange={e => handleInputChange(field_key, e.target.files?.[0])}
             required={required}
           />
-          {description && <label className="label"><span className="label-text-alt">{description}</span></label>}
-          {errors[field_key] && <label className="label"><span className="label-text-alt text-error">{errors[field_key]}</span></label>}
+          {description && (
+            <label className="label">
+              <span className="label-text-alt">{description}</span>
+            </label>
+          )}
+          {errors[field_key] && (
+            <label className="label">
+              <span className="label-text-alt text-error">{errors[field_key]}</span>
+            </label>
+          )}
         </div>
       );
     }
@@ -92,16 +100,26 @@ export const DynamicForm = ({ schema, onSubmit, onCancel, isLoading = false }: D
             <select
               className="select select-bordered w-full"
               value={formData[field_key] || ""}
-              onChange={(e) => handleInputChange(field_key, e.target.value)}
+              onChange={e => handleInputChange(field_key, e.target.value)}
               required={required}
             >
               <option value="">Select {label}</option>
               {options?.map(option => (
-                <option key={option} value={option}>{option}</option>
+                <option key={option} value={option}>
+                  {option}
+                </option>
               ))}
             </select>
-            {description && <label className="label"><span className="label-text-alt">{description}</span></label>}
-            {errors[field_key] && <label className="label"><span className="label-text-alt text-error">{errors[field_key]}</span></label>}
+            {description && (
+              <label className="label">
+                <span className="label-text-alt">{description}</span>
+              </label>
+            )}
+            {errors[field_key] && (
+              <label className="label">
+                <span className="label-text-alt text-error">{errors[field_key]}</span>
+              </label>
+            )}
           </div>
         );
 
@@ -120,12 +138,15 @@ export const DynamicForm = ({ schema, onSubmit, onCancel, isLoading = false }: D
                     type="checkbox"
                     className="checkbox checkbox-sm mr-2"
                     checked={(formData[field_key] || []).includes(option)}
-                    onChange={(e) => {
+                    onChange={e => {
                       const currentArray = formData[field_key] || [];
                       if (e.target.checked) {
                         handleInputChange(field_key, [...currentArray, option]);
                       } else {
-                        handleInputChange(field_key, currentArray.filter((item: string) => item !== option));
+                        handleInputChange(
+                          field_key,
+                          currentArray.filter((item: string) => item !== option),
+                        );
                       }
                     }}
                   />
@@ -133,8 +154,16 @@ export const DynamicForm = ({ schema, onSubmit, onCancel, isLoading = false }: D
                 </label>
               ))}
             </div>
-            {description && <label className="label"><span className="label-text-alt">{description}</span></label>}
-            {errors[field_key] && <label className="label"><span className="label-text-alt text-error">{errors[field_key]}</span></label>}
+            {description && (
+              <label className="label">
+                <span className="label-text-alt">{description}</span>
+              </label>
+            )}
+            {errors[field_key] && (
+              <label className="label">
+                <span className="label-text-alt text-error">{errors[field_key]}</span>
+              </label>
+            )}
           </div>
         );
 
@@ -150,12 +179,20 @@ export const DynamicForm = ({ schema, onSubmit, onCancel, isLoading = false }: D
               type="date"
               className="input input-bordered w-full"
               value={formData[field_key] || ""}
-              onChange={(e) => handleInputChange(field_key, e.target.value)}
+              onChange={e => handleInputChange(field_key, e.target.value)}
               required={required}
               placeholder={example}
             />
-            {description && <label className="label"><span className="label-text-alt">{description}</span></label>}
-            {errors[field_key] && <label className="label"><span className="label-text-alt text-error">{errors[field_key]}</span></label>}
+            {description && (
+              <label className="label">
+                <span className="label-text-alt">{description}</span>
+              </label>
+            )}
+            {errors[field_key] && (
+              <label className="label">
+                <span className="label-text-alt text-error">{errors[field_key]}</span>
+              </label>
+            )}
           </div>
         );
 
@@ -173,12 +210,22 @@ export const DynamicForm = ({ schema, onSubmit, onCancel, isLoading = false }: D
               step={type === "integer" ? "1" : "0.01"}
               className="input input-bordered w-full"
               value={formData[field_key] || ""}
-              onChange={(e) => handleInputChange(field_key, type === "integer" ? parseInt(e.target.value) : parseFloat(e.target.value))}
+              onChange={e =>
+                handleInputChange(field_key, type === "integer" ? parseInt(e.target.value) : parseFloat(e.target.value))
+              }
               required={required}
               placeholder={example}
             />
-            {description && <label className="label"><span className="label-text-alt">{description}</span></label>}
-            {errors[field_key] && <label className="label"><span className="label-text-alt text-error">{errors[field_key]}</span></label>}
+            {description && (
+              <label className="label">
+                <span className="label-text-alt">{description}</span>
+              </label>
+            )}
+            {errors[field_key] && (
+              <label className="label">
+                <span className="label-text-alt text-error">{errors[field_key]}</span>
+              </label>
+            )}
           </div>
         );
 
@@ -194,12 +241,20 @@ export const DynamicForm = ({ schema, onSubmit, onCancel, isLoading = false }: D
               type={type === "email" ? "email" : type === "phone" ? "tel" : "text"}
               className="input input-bordered w-full"
               value={formData[field_key] || ""}
-              onChange={(e) => handleInputChange(field_key, e.target.value)}
+              onChange={e => handleInputChange(field_key, e.target.value)}
               required={required}
               placeholder={example}
             />
-            {description && <label className="label"><span className="label-text-alt">{description}</span></label>}
-            {errors[field_key] && <label className="label"><span className="label-text-alt text-error">{errors[field_key]}</span></label>}
+            {description && (
+              <label className="label">
+                <span className="label-text-alt">{description}</span>
+              </label>
+            )}
+            {errors[field_key] && (
+              <label className="label">
+                <span className="label-text-alt text-error">{errors[field_key]}</span>
+              </label>
+            )}
           </div>
         );
     }
@@ -208,38 +263,23 @@ export const DynamicForm = ({ schema, onSubmit, onCancel, isLoading = false }: D
   return (
     <div className="modal modal-open">
       <div className="modal-box w-11/12 max-w-4xl max-h-[90vh] overflow-y-auto">
-        <h3 className="font-bold text-lg mb-4">
-          {schema.actor.replace(/_/g, " ")} Verification Form
-        </h3>
+        <h3 className="font-bold text-lg mb-4">{schema.actor.replace(/_/g, " ")} Verification Form</h3>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {Object.entries(groupedFields).map(([category, fields]) => (
             <div key={category} className="collapse collapse-open border border-base-300 rounded-box">
-              <div className="collapse-title text-lg font-medium bg-base-200">
-                {category.replace(/:/g, " - ")}
-              </div>
+              <div className="collapse-title text-lg font-medium bg-base-200">{category.replace(/:/g, " - ")}</div>
               <div className="collapse-content">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                  {fields.map(renderField)}
-                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">{fields.map(renderField)}</div>
               </div>
             </div>
           ))}
 
           <div className="modal-action">
-            <button
-              type="button"
-              className="btn btn-ghost"
-              onClick={onCancel}
-              disabled={isLoading}
-            >
+            <button type="button" className="btn btn-ghost" onClick={onCancel} disabled={isLoading}>
               Cancel
             </button>
-            <button
-              type="submit"
-              className={`btn btn-primary ${isLoading ? "loading" : ""}`}
-              disabled={isLoading}
-            >
+            <button type="submit" className={`btn btn-primary ${isLoading ? "loading" : ""}`} disabled={isLoading}>
               {isLoading ? "Submitting..." : "Submit Verification"}
             </button>
           </div>

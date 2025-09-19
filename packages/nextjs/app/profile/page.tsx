@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { formatEther, parseEther, parseUnits } from "viem";
 import { useAccount } from "wagmi";
-import { parseEther, formatEther, parseUnits } from "viem";
 import { useSendTransaction, useWriteContract } from "wagmi";
-import { Address, AddressInput, Balance } from "~~/components/scaffold-eth";
 import { ComplianceStatus } from "~~/components/ComplianceStatus";
 import { DynamicForm } from "~~/components/DynamicForm";
 import { ERC20Balance } from "~~/components/ERC20Balance";
-import { parseCSV, FormSchema } from "~~/utils/csvParser";
+import { Address, AddressInput, Balance } from "~~/components/scaffold-eth";
+import { FormSchema, parseCSV } from "~~/utils/csvParser";
 
 // Contract addresses from environment
 const USDC_ADDRESS = "0x31d0220469e10c4E71834a79b1f276d740d3768F";
@@ -21,7 +21,7 @@ export default function ProfilePage() {
   const [formSchema, setFormSchema] = useState<FormSchema | null>(null);
   const [isLoadingSchema, setIsLoadingSchema] = useState(false);
   const [isSubmittingVerification, setIsSubmittingVerification] = useState(false);
-  
+
   // Send funds form
   const [showSendForm, setShowSendForm] = useState(false);
   const [sendToAddress, setSendToAddress] = useState("");
@@ -172,7 +172,7 @@ export default function ProfilePage() {
               <p className="text-sm text-base-content/70 mb-4">
                 Complete KYC/AML verification to access funding features.
               </p>
-              
+
               <div className="flex gap-2">
                 <button
                   className={`btn btn-primary ${isLoadingSchema ? "loading" : ""}`}
@@ -206,29 +206,26 @@ export default function ProfilePage() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="font-semibold">USDC</span>
-                  <ERC20Balance 
-                    address={address} 
-                    tokenAddress={USDC_ADDRESS as `0x${string}`} 
+                  <ERC20Balance
+                    address={address}
+                    tokenAddress={USDC_ADDRESS as `0x${string}`}
                     tokenSymbol="USDC"
                     decimals={6}
                   />
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="font-semibold">ECOP</span>
-                  <ERC20Balance 
-                    address={address} 
-                    tokenAddress={ECOP_ADDRESS as `0x${string}`} 
+                  <ERC20Balance
+                    address={address}
+                    tokenAddress={ECOP_ADDRESS as `0x${string}`}
                     tokenSymbol="ECOP"
                     decimals={6}
                   />
                 </div>
               </div>
-              
+
               <div className="card-actions justify-end mt-4">
-                <button
-                  className="btn btn-outline btn-sm"
-                  onClick={() => setShowSendForm(true)}
-                >
+                <button className="btn btn-outline btn-sm" onClick={() => setShowSendForm(true)}>
                   Send Funds
                 </button>
               </div>
@@ -245,11 +242,7 @@ export default function ProfilePage() {
                     <label className="label">
                       <span className="label-text">To Address</span>
                     </label>
-                    <AddressInput
-                      placeholder="Recipient address"
-                      value={sendToAddress}
-                      onChange={setSendToAddress}
-                    />
+                    <AddressInput placeholder="Recipient address" value={sendToAddress} onChange={setSendToAddress} />
                   </div>
 
                   <div className="form-control">
@@ -259,7 +252,7 @@ export default function ProfilePage() {
                     <select
                       className="select select-bordered w-full"
                       value={sendToken}
-                      onChange={(e) => setSendToken(e.target.value as "ETH" | "USDC" | "ECOP")}
+                      onChange={e => setSendToken(e.target.value as "ETH" | "USDC" | "ECOP")}
                     >
                       <option value="ETH">ETH</option>
                       <option value="USDC">USDC</option>
@@ -277,17 +270,13 @@ export default function ProfilePage() {
                       className="input input-bordered w-full"
                       placeholder="0.0"
                       value={sendAmount}
-                      onChange={(e) => setSendAmount(e.target.value)}
+                      onChange={e => setSendAmount(e.target.value)}
                       required
                     />
                   </div>
 
                   <div className="flex gap-2">
-                    <button
-                      type="button"
-                      className="btn btn-ghost flex-1"
-                      onClick={() => setShowSendForm(false)}
-                    >
+                    <button type="button" className="btn btn-ghost flex-1" onClick={() => setShowSendForm(false)}>
                       Cancel
                     </button>
                     <button type="submit" className="btn btn-primary flex-1">

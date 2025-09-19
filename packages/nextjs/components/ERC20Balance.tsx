@@ -14,12 +14,12 @@ type ERC20BalanceProps = {
 /**
  * Display ERC20 token balance of an address.
  */
-export const ERC20Balance = ({ 
-  address, 
-  tokenAddress, 
-  tokenSymbol, 
-  decimals = 18, 
-  className = "" 
+export const ERC20Balance = ({
+  address,
+  tokenAddress,
+  tokenSymbol,
+  decimals = 18,
+  className = "",
 }: ERC20BalanceProps) => {
   const {
     data: balance,

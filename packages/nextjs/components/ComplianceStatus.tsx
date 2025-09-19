@@ -63,11 +63,9 @@ export const ComplianceStatus = ({ address, showDetails = true }: ComplianceStat
     <div className="card bg-base-100 shadow-lg">
       <div className="card-body">
         <h3 className="card-title">Compliance Status</h3>
-        
+
         <div className="flex items-center gap-2 mb-4">
-          <span className={`badge ${getStatusColor(status)} badge-lg`}>
-            {status}
-          </span>
+          <span className={`badge ${getStatusColor(status)} badge-lg`}>{status}</span>
         </div>
 
         {showDetails && (
@@ -77,20 +75,18 @@ export const ComplianceStatus = ({ address, showDetails = true }: ComplianceStat
                 <span className="font-semibold">Token ID:</span> {tokenId.toString()}
               </div>
             )}
-            
+
             {validUntil && validUntil > 0n && (
               <div>
                 <span className="font-semibold">Valid Until:</span> {formatDate(validUntil)}
                 {status === "EXPIRED" && (
-                  <div className="text-error text-sm mt-1">
-                    Expired — contact admin to renew
-                  </div>
+                  <div className="text-error text-sm mt-1">Expired — contact admin to renew</div>
                 )}
-                {status === "VERIFIED" && validUntil && (validUntil - BigInt(Math.floor(Date.now() / 1000))) < BigInt(30 * 24 * 60 * 60) && (
-                  <div className="text-warning text-sm mt-1">
-                    Expires within 30 days — consider renewal
-                  </div>
-                )}
+                {status === "VERIFIED" &&
+                  validUntil &&
+                  validUntil - BigInt(Math.floor(Date.now() / 1000)) < BigInt(30 * 24 * 60 * 60) && (
+                    <div className="text-warning text-sm mt-1">Expires within 30 days — consider renewal</div>
+                  )}
               </div>
             )}
           </div>

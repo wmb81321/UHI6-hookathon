@@ -8,26 +8,17 @@ export async function POST(request: NextRequest) {
     const { address, kind, fields } = body;
 
     if (!address || !kind || !fields) {
-      return NextResponse.json(
-        { error: "Missing required fields: address, kind, fields" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Missing required fields: address, kind, fields" }, { status: 400 });
     }
 
     // Validate address format
     if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
-      return NextResponse.json(
-        { error: "Invalid Ethereum address" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid Ethereum address" }, { status: 400 });
     }
 
     // Validate kind
     if (!["PERSON", "INSTITUTION"].includes(kind)) {
-      return NextResponse.json(
-        { error: "Invalid verification kind. Must be PERSON or INSTITUTION" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid verification kind. Must be PERSON or INSTITUTION" }, { status: 400 });
     }
 
     // Create or update user record
@@ -66,9 +57,6 @@ Please review the request in the admin panel.`;
     });
   } catch (error) {
     console.error("Error submitting verification request:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

@@ -3,9 +3,9 @@
 import Link from "next/link";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
-import { UserIcon, CurrencyDollarIcon, ShieldCheckIcon, CogIcon } from "@heroicons/react/24/outline";
-import { Address } from "~~/components/scaffold-eth";
+import { CogIcon, CurrencyDollarIcon, ShieldCheckIcon, UserIcon } from "@heroicons/react/24/outline";
 import { ComplianceStatus } from "~~/components/ComplianceStatus";
+import { Address } from "~~/components/scaffold-eth";
 
 const Home: NextPage = () => {
   const { address: connectedAddress, isConnected } = useAccount();
@@ -17,9 +17,7 @@ const Home: NextPage = () => {
           <h1 className="text-center mb-8">
             <span className="block text-2xl mb-2">Welcome to</span>
             <span className="block text-4xl font-bold">Convexo</span>
-            <span className="block text-lg text-base-content/70 mt-2">
-              Compliant DeFi Infrastructure
-            </span>
+            <span className="block text-lg text-base-content/70 mt-2">Compliant DeFi Infrastructure</span>
           </h1>
 
           {isConnected ? (
@@ -35,8 +33,8 @@ const Home: NextPage = () => {
 
           <div className="text-center mb-12">
             <p className="text-lg mb-4">
-              A comprehensive compliance platform for DeFi, featuring soulbound verification NFTs 
-              and seamless fiat-to-crypto onboarding.
+              A comprehensive compliance platform for DeFi, featuring soulbound verification NFTs and seamless
+              fiat-to-crypto onboarding.
             </p>
             <p className="text-base-content/70">
               Complete KYC/AML verification to access funding features and participate in compliant liquidity provision.
@@ -54,7 +52,7 @@ const Home: NextPage = () => {
         <div className="grow bg-base-300 w-full px-8 py-12">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">Platform Features</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Profile Management */}
               <div className="flex flex-col bg-base-100 px-6 py-8 text-center items-center rounded-3xl shadow-lg">
@@ -113,9 +111,7 @@ const Home: NextPage = () => {
                     1
                   </div>
                   <h4 className="font-bold mb-2">Connect Wallet</h4>
-                  <p className="text-sm text-base-content/70">
-                    Connect your Ethereum wallet to access the platform
-                  </p>
+                  <p className="text-sm text-base-content/70">Connect your Ethereum wallet to access the platform</p>
                 </div>
                 <div className="flex flex-col items-center">
                   <div className="w-12 h-12 bg-success text-success-content rounded-full flex items-center justify-center font-bold text-xl mb-4">

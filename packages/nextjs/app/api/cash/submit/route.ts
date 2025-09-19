@@ -8,26 +8,17 @@ export async function POST(request: NextRequest) {
     const { address, direction, amountWei, bankRef, token = "ECOP" } = body;
 
     if (!address || !direction || !amountWei) {
-      return NextResponse.json(
-        { error: "Missing required fields: address, direction, amountWei" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Missing required fields: address, direction, amountWei" }, { status: 400 });
     }
 
     // Validate address format
     if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
-      return NextResponse.json(
-        { error: "Invalid Ethereum address" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid Ethereum address" }, { status: 400 });
     }
 
     // Validate direction
     if (!["IN", "OUT"].includes(direction)) {
-      return NextResponse.json(
-        { error: "Invalid direction. Must be IN or OUT" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid direction. Must be IN or OUT" }, { status: 400 });
     }
 
     // Create or update user record
@@ -80,9 +71,6 @@ Please review the request in the admin panel.`;
     });
   } catch (error) {
     console.error("Error submitting cash request:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

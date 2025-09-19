@@ -11,10 +11,7 @@ export async function GET(request: NextRequest) {
     const isAdmin = userAddress === adminAddress;
 
     if (!isAdmin && !userAddress) {
-      return NextResponse.json(
-        { error: "Address parameter required for non-admin requests" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Address parameter required for non-admin requests" }, { status: 400 });
     }
 
     let verificationRequests;
@@ -50,9 +47,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ requests });
   } catch (error) {
     console.error("Error fetching verification requests:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

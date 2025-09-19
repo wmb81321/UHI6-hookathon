@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useAccount } from "wagmi";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useAccount } from "wagmi";
 import { ComplianceStatus } from "~~/components/ComplianceStatus";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 
@@ -28,12 +28,12 @@ export default function FundingPage() {
   // Bank accounts functionality - placeholder for future implementation
   // const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   // Cash In form
   const [cashInAmount, setCashInAmount] = useState("");
   const [cashInBank, setCashInBank] = useState("");
   const [isSubmittingCashIn, setIsSubmittingCashIn] = useState(false);
-  
+
   // Cash Out form
   const [cashOutAmount, setCashOutAmount] = useState("");
   const [cashOutBank, setCashOutBank] = useState("");
@@ -46,16 +46,9 @@ export default function FundingPage() {
     args: [address],
   });
 
-  // Load cash requests
-  useEffect(() => {
-    if (address && isCompliant) {
-      loadCashRequests();
-    }
-  }, [address, isCompliant, loadCashRequests]);
-
   const loadCashRequests = async () => {
     if (!address) return;
-    
+
     setIsLoading(true);
     try {
       const response = await fetch(`/api/cash/list?address=${address}`);
@@ -186,10 +179,20 @@ export default function FundingPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold mb-8">Funding</h1>
-        
+
         <div className="alert alert-warning mb-8">
-          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+            />
           </svg>
           <div>
             <h3 className="font-bold">Verification Required</h3>
@@ -199,7 +202,7 @@ export default function FundingPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <ComplianceStatus address={address} />
-          
+
           <div className="card bg-base-100 shadow-lg">
             <div className="card-body">
               <h3 className="card-title">Get Verified</h3>
@@ -224,16 +227,10 @@ export default function FundingPage() {
 
       {/* Tabs */}
       <div className="tabs tabs-boxed mb-8">
-        <button 
-          className={`tab ${activeTab === "in" ? "tab-active" : ""}`}
-          onClick={() => setActiveTab("in")}
-        >
+        <button className={`tab ${activeTab === "in" ? "tab-active" : ""}`} onClick={() => setActiveTab("in")}>
           Cash In
         </button>
-        <button 
-          className={`tab ${activeTab === "out" ? "tab-active" : ""}`}
-          onClick={() => setActiveTab("out")}
-        >
+        <button className={`tab ${activeTab === "out" ? "tab-active" : ""}`} onClick={() => setActiveTab("out")}>
           Cash Out
         </button>
       </div>
@@ -248,7 +245,7 @@ export default function FundingPage() {
                 <p className="text-sm text-base-content/70 mb-4">
                   Request to deposit fiat currency and receive ECOP tokens.
                 </p>
-                
+
                 <form onSubmit={handleCashInSubmit} className="space-y-4">
                   <div className="form-control">
                     <label className="label">
@@ -260,7 +257,7 @@ export default function FundingPage() {
                       className="input input-bordered w-full"
                       placeholder="0.00"
                       value={cashInAmount}
-                      onChange={(e) => setCashInAmount(e.target.value)}
+                      onChange={e => setCashInAmount(e.target.value)}
                       required
                     />
                   </div>
@@ -274,12 +271,12 @@ export default function FundingPage() {
                       className="input input-bordered w-full"
                       placeholder="Bank account reference or alias"
                       value={cashInBank}
-                      onChange={(e) => setCashInBank(e.target.value)}
+                      onChange={e => setCashInBank(e.target.value)}
                     />
                   </div>
 
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className={`btn btn-primary w-full ${isSubmittingCashIn ? "loading" : ""}`}
                     disabled={isSubmittingCashIn}
                   >
@@ -295,16 +292,31 @@ export default function FundingPage() {
                 </p>
 
                 <div className="alert alert-info mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className="stroke-current shrink-0 w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
                   </svg>
                   <div className="text-sm">
-                    <p><strong>Instructions:</strong></p>
-                    <p>1. Send ECOP tokens to treasury: <code className="bg-base-200 px-1 rounded">{TREASURY_ADDRESS}</code></p>
+                    <p>
+                      <strong>Instructions:</strong>
+                    </p>
+                    <p>
+                      1. Send ECOP tokens to treasury:{" "}
+                      <code className="bg-base-200 px-1 rounded">{TREASURY_ADDRESS}</code>
+                    </p>
                     <p>2. Submit the form below with the amount and bank details</p>
                   </div>
                 </div>
-                
+
                 <form onSubmit={handleCashOutSubmit} className="space-y-4">
                   <div className="form-control">
                     <label className="label">
@@ -316,7 +328,7 @@ export default function FundingPage() {
                       className="input input-bordered w-full"
                       placeholder="0.000000"
                       value={cashOutAmount}
-                      onChange={(e) => setCashOutAmount(e.target.value)}
+                      onChange={e => setCashOutAmount(e.target.value)}
                       required
                     />
                   </div>
@@ -330,13 +342,13 @@ export default function FundingPage() {
                       className="input input-bordered w-full"
                       placeholder="Bank account reference or alias"
                       value={cashOutBank}
-                      onChange={(e) => setCashOutBank(e.target.value)}
+                      onChange={e => setCashOutBank(e.target.value)}
                       required
                     />
                   </div>
 
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className={`btn btn-primary w-full ${isSubmittingCashOut ? "loading" : ""}`}
                     disabled={isSubmittingCashOut}
                   >
@@ -352,15 +364,13 @@ export default function FundingPage() {
         <div className="card bg-base-100 shadow-lg">
           <div className="card-body">
             <h3 className="card-title">Request History</h3>
-            
+
             {isLoading ? (
               <div className="flex justify-center py-8">
                 <div className="loading loading-spinner loading-md"></div>
               </div>
             ) : cashRequests.length === 0 ? (
-              <p className="text-center text-base-content/70 py-8">
-                No requests found.
-              </p>
+              <p className="text-center text-base-content/70 py-8">No requests found.</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="table table-zebra">
@@ -374,26 +384,22 @@ export default function FundingPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {cashRequests.map((request) => (
+                    {cashRequests.map(request => (
                       <tr key={request.id}>
-                        <td className="text-sm">
-                          {new Date(request.createdAt).toLocaleDateString()}
-                        </td>
+                        <td className="text-sm">{new Date(request.createdAt).toLocaleDateString()}</td>
                         <td>
-                          <span className={`badge ${request.direction === "IN" ? "badge-success" : "badge-warning"} badge-sm`}>
+                          <span
+                            className={`badge ${request.direction === "IN" ? "badge-success" : "badge-warning"} badge-sm`}
+                          >
                             {request.direction}
                           </span>
                         </td>
                         <td className="font-mono text-sm">
                           {formatAmount(request.amountWei)} {request.token}
                         </td>
-                        <td className="text-sm">
-                          {request.bankRef || "N/A"}
-                        </td>
+                        <td className="text-sm">{request.bankRef || "N/A"}</td>
                         <td>
-                          <span className={`badge ${getStatusColor(request.status)} badge-sm`}>
-                            {request.status}
-                          </span>
+                          <span className={`badge ${getStatusColor(request.status)} badge-sm`}>{request.status}</span>
                         </td>
                       </tr>
                     ))}
